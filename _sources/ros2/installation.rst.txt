@@ -1,0 +1,99 @@
+.. _installation:
+
+Installation
+============
+An overview on the installation process of both the real and the simulated robot are discussed here. 
+
+.. note:: As a prerequiste, we suggest you to go through the tutorial on `creating and building a ros2 package <https://docs.ros.org/en/$ROS_DISTRO/Tutorials/Creating-Your-First-ROS2-Package.html>`_.
+
+Distributions
+-------------
+
+.. image:: humble.png
+   :height: 200px
+   :target: https://docs.ros.org/en/$ROS_DISTRO/Installation.html
+
+.. tip:: User will be directed to the installation of the distro by pressing the corresponding image.
+
+.. _packages-for-client-PC:
+
+Packages for Client-PC
+----------------------
+
+Creating a ROS workspace
+************************
+
+The ROS workspace contains the packages needed on your Client PC. See below on how to initialize it from a terminal:
+
+::
+
+    mkdir ~/awcombo_ws/src
+
+Downloading the required ROS-Packages
+
+awtube_interfaces
+***************
+::
+
+    git clone --branch $ROS_DISTRO http://gitlab.automation.ret/group1/software1/pkgs/awtube_interfaces.git
+
+neo_msgs
+********
+::
+
+    git clone https://github.com/neobotix/neo_msgs2.git
+
+neo_srvs
+********
+::
+
+    git clone https://github.com/neobotix/neo_srvs2.git
+
+Once all the packages are installed:
+
+::
+
+	cd awcombo_ws/
+	colcon build --symlink-install
+	. install/setup.bash
+
+Sourcing the workspace
+**********************
+
+.. note:: ``. install/setup.bash`` does not need to be done each time after a package has been built, if the following step as been done. 
+
+::
+
+    echo "source awcombo_ws/install/setup.bash" >> ~/.bashrc
+
+Packages for Simulation
+-----------------------
+::
+
+    git clone https://github.com/Automationware/one4all.git
+::
+
+    sudo apt-get update
+    sudo apt-get install -y ros-$ROS_DISTRO-xacro \
+        ros-$ROS_DISTRO-gazebo-ros2-control \
+        ros-$ROS_DISTRO-ros2-control \
+        ros-$ROS_DISTRO-ros2-controllers \
+        ros-$ROS_DISTRO-camera-ros \
+        ros-$ROS_DISTRO-gazebo-plugins \
+        ros-$ROS_DISTRO-moveit-ros-move-group \
+        ros-$ROS_DISTRO-pilz-industrial-motion-planner \
+        ros-$ROS_DISTRO-moveit \
+        ros-$ROS_DISTRO-gazebo-ros ros-$ROS_DISTRO-gazebo-plugins ros-$ROS_DISTRO-gazebo-ros-pkgs \
+        ros-$ROS_DISTRO-navigation2 ros-$ROS_DISTRO-nav2-* \
+        ros-$ROS_DISTRO-slam-toolbox \
+        ros-$ROS_DISTRO-teleop-twist-joy \
+        ros-$ROS_DISTRO-teleop-twist-keyboard\
+
+    rosdep update \
+        && rosdep install --from-paths ./ -i -y --rosdistro $ROS_DISTRO \
+        --ignore-src
+
+Docker Simulation
+*************************
+
+Follow the instructions at https://github.com/Automationware/one4all

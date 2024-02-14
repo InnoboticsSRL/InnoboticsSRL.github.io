@@ -1,0 +1,24 @@
+.. _simulation:
+
+Starting with ROS on the Simulation
+===================================
+
+Main command interfaces
+-----------------------
+
+Movements Through rqt
+*************************
+.. image:: rqt_control_example.gif
+   :width: 400px
+
+Base's Movement Through Nav2
+*************************
+.. image:: nav2_example.gif
+   :width: 400px
+please read how it works :ref:`Nav2`
+
+Arm's Movement Through Moveit2
+*************************
+.. image:: movegroup_example.gif
+   :width: 400px
+please read how it works :ref:`Moveit2`

@@ -1,0 +1,239 @@
+.. _autonomous-navigation:
+
+Nav2
+=============================
+
+Nav2 is the navigation stack for mobile robots designed for ROS 2. This package is considered both in research and as well as in industrial applications because of the modularity and the wide range of algorithms that it provides to the user. Nav2 is still considered as an evolving project and new features can be expected every fortnight. 
+
+In this tutorial, we just explain on how Nav2 is used in our robots. We encourage the users to check out the detailed `official Nav2 documentation page <https://navigation.ros.org/>`_ for understanding the concepts surronding it.
+
+.. attention:: 
+	In this tutorial for the sake of generality, we will be using neo_m(?)_(?)00 for the MP series. Please fill in with your own robot. For the case of simulation use neo_simulation.
+
+.. attention::
+	The namespacing support is not yet avialble for the ROX series. 
+
+Mapping
+-------
+
+Map is one of the essential component representing the environment based on which the planning algorithm will be able to plan the path for the robot.
+
+For creating a map, we use the `slam_toolbox <https://github.com/SteveMacenski/slam_toolbox>`_. 
+
+Creating map
+************
+
+.. note:: Depending on the requirement, the mapping parameters can be changed under ``~/your_workspace/src/neo_mp(?)_(?)00/config/navigation/mapping.yaml`` for MP series and ``~/ros2_workspace/src/rox/rox_navigation/configs/mapping.yaml``
+
+* Start creating the map, use the following command
+
+Without namespace:
+
+For MP series robots:
+
+::
+
+	ros2 launch neo_m(?)_(?)00 mapping.launch.py parameters:=~/$your_workspace/src/neo_m(?)_(?)00/configs/navigation/mapping.yaml
+
+For ROX series robots:
+
+::
+
+	ros2 launch rox_navigation mapping.launch.py parameters:=~/$your_workspace/src/rox/rox_navigation/configs/mapping.yaml
+
+With namespace:
+
+::
+
+	ros2 launch neo_m(?)_(?)00 mapping.launch.py parameters:=~/$your_workspace/src/neo_m(?)_(?)00/configs/navigation/namespaced_mapping.yaml robot_namespace:=robot1
+
+.. warning:: Do not close the launch until saving the map.
+
+.. attention:: The namespacing support for mapping is currently only available in MP-400.
+
+
+* After starting the mapping, in the RViz, the initial stripes of the maps can be found as shown in the image below:
+
+.. figure:: neo_mapping_tutorial_1.png
+
+* Navigate the robot around the environment, in order to further build the map.
+* Here is an example of a completely built map in our simulation:
+
+.. figure:: neo_map_complete.png
+
+Saving map
+**********
+
+To save the map, use the following command
+
+For MP series robots:
+
+::
+
+	ros2 run nav2_map_server map_saver_cli -f ~/to_your_workspace/src/neo_m(?)_(?)00/configs/navigation/maps/your_map_name
+
+For ROX series robots:
+
+::
+
+	ros2 run nav2_map_server map_saver_cli -f ~/ros2_workspace/src/rox/rox_navigation/maps/your_map_name
+
+In the map folder, two essential files are created
+	1. your_map_name.pgm
+	2. your_map_name.yaml
+
+Once the files are created, it's always essential to rebuild the package, in order for the maps to be installed and available during the run time. If not built, ROS will not be able to find the newly created map.
+
+Autonomous Navigation
+---------------------
+
+In order for the robot to autonomously navigate, we require three important components:
+
+	- Localization
+	- Planning
+	- Control
+
+We have a single launch file and a single config file that brings up all the above necessary components. 
+
+Before starting the navigation, it is essential to utilize the newly created map for navigation. For this there are 2 ways to go about.
+
+1. A default map for the robots' environment can be set. For this,
+
+In case of MP robots, please go to `~/to_your_workspace/src/neo_m(?)_(?)00/launch/navigation.launch.py` and change the default value under the `map_dir` variable. 
+
+In case of ROX robots, please go to `~/ros2_workspace/src/rox/launch/navigation.launch.py` and change the default value under the `map_dir` variable. 
+
+Once done, the navigation can be initiated from the commandline by running:
+
+Without namespacing:
+
+For MP series robots:
+
+::
+
+	ros2 launch neo_m(?)_(?)00 navigation.launch.py
+
+For ROX series robots:
+
+::
+
+	ros2 launch rox_navigation navigation.launch.py
+
+
+With namespacing:
+
+::
+
+	ros2 launch neo_mpo_700-2 navigation.launch.py namespace:="robot1" use_multi_robots:=True head_robot:=True params_file:=install/neo_mpo_700-2/share/neo_mpo_700-2/configs/navigation/multi_robot_navigation.yaml
+
+2. Also the map can be chosen from the commandline terminal:
+
+::
+
+	ros2 launch neo_m(?)_(?)00 navigation.launch.py map:=to_your_map_file.yaml
+
+Launch RViz
+
+Without namespacing:
+
+::
+
+	ros2 launch neo_nav2_bringup rviz_launch.py 
+
+With namespacing:
+
+::
+
+	ros2 launch neo_nav2_bringup rviz_launch.py use_namespace:=True namespace:="robot1"
+
+Localize the robot
+******************
+
+By default we use neo_localization for localization. In order to localize the robot press the "2D Pose Estimate" button and select the robot location on the map.
+
+Sending goal(s) for the robot
+*****************************
+
+In order the robot to start navigating autonomous a goal position needs to be defined. Assuming the goal position is given, Nav2 uses the planner to find an optimal path for the robot to the goal location. A controller is deployed by Nav2 for the robot to follow the path. 
+
+There are different ways to give the goals for the robot, here we will just explain some of them to get started:
+
+Sending a single goal
+#####################
+
+In order to send just a single goal, press the "Nav2 goal" button and select the desired goal location on the map, as shown in the GIF below:
+
+.. figure:: send_single.gif
+
+Sending multiple goals
+######################
+
+For the people who are interested in sending multiple goals to the robot, No problem! Navigation2 provides a waypoint-following plugin, which would allow us to select multiple goals. For the ease of the user, we have already configured this plugin and ready for use.
+
+In order to select the multiple goals. First, press the "Waypoint / Nav Through Poses Mode" button.  The again as same as selecting a single goal, press the "Nav2 goal" button to select your goal location.
+
+Note that, before selecting each goal, it is required to press the "Nav2 goal" button.
+
+.. note:: Waypoint follower plug-in is a direct replacement for the neo_goal_sequence driver, which our ROS-1 users are familiar with.
+
+.. figure:: send_multiple.gif
+
+
+More about Navigation launch
+----------------------------
+
+Navigation launch is equipped with bunch of arguments, allowing the users to enable multi robot navigation, changing parameter set and enable docking for autonomous charging.
+
+The argument list are as follows:
+
+.. warning:: Note, only selected parameters are available for ROX robot. Please check the :ref:`rox-navigation` page for the available launch arguments. 
+
+========================= ============================================= ===========================================================
+Arguments                 Defaults                                      Description
+========================= ============================================= ===========================================================
+`use_multi_robots`        `False` (Format: `Bool`)                      Enables namespacing to the nodes related to Nav2
+`head_robot`              `False` (Format: `Bool`)                      Enables the map server
+`enable_docking`          `False` (Format: `Bool`)                      Enables docking and sets the corresponding nav2 parameters
+`use_amcl`                `False` (Format: `Bool`)                      Enabled if user wants to use amcl for localization
+`autostart`               `True` (Format: `Bool`)                       Disabled if user wants to trigger the lifecycle nodes
+`namespace`               "" (Format: `String`)                         Used in multi-robot scenario
+`param_file_name`         "navigation.yaml" (Format: `String`)          Path to the Nav2 param file for each robots
+`docking_param_file_name` "docking_navigation.yaml" (Format: `String`)  Path to the Nav2 param file for each robots during docking
+`map`                     "test.yaml" (Format: `String`)                Path to the map file that robot uses for navigation
+========================= ============================================= ===========================================================
+
+Namespacing
+***********
+
+More about the Navigation namespacing can be read under :ref:`namespacing-guide`.
+
+Docking
+*******
+
+More information on the docking can be found `here <https://github.com/neobotix/neo_docking2>`_.
+
+Change parameters and algorithms
+--------------------------------
+
+There are different algorithms and corresponding parameters as part of the Navigation2 stack. These parameters can be found under ``~/your_workspace/src/neo_mp(?)_(?)00/config/navigation/navigation.yaml`` 
+
+============= ================= ==============================================
+Parameters    Default           Options
+============= ================= ==============================================
+Planner       NavFn	            SMAC Planner
+Controller    neo_local_planner TEB, DWB local planner, MPPIC, etc..
+Localization  neo_localizaiton  AMCL
+============= ================= ==============================================
+
+All the home-brewed algorithms are explained in the section packages. More information about the options specified in the above table can be found in this `navigation plugins page <https://navigation.ros.org/plugins/>`_.
+
+Changing Behaviors
+------------------
+
+Behavior tree is one of the key core concepts that have been adapted into the Navigation 2 stack. Behavior trees in the Nav2 stack provides the user to easily develop and customize various behaviors that the robot should exhibit. Each behaviors are developed as an individual component and then is integrated into the behavior tree. Thus the behavior tree, provides us with a flexible development environment for solving a particular problem at hand. 
+
+By default, all the robot packages carry behavior trees, that is customizable according to the application needs. The behavior trees can be found under ``~/your_workspace/src/neo_mp(?)_(?)00/config/navigation/behavior_trees`` for MP robots and to ``~/your_workspace/src/rox/rox_navigation/config/behavior_trees`` for ROX. 
+
+``navigating_to_a_pose`` behavior tree is for all the tasks that requires the robot to navigate in free space from point A to point B. Whereas ``navigate_through_pose`` behavior tree is for the tasks that requires to robot to navigate through set of intermediary hard pose constraints in order to reach the goal localtion 
+
+.. note:: More information on behavior trees can be `found here <https://navigation.ros.org/concepts/index.html#behavior-trees>`_. `Examples of behavior_trees can be found here <https://navigation.ros.org/behavior_trees/index.html>`_. 
