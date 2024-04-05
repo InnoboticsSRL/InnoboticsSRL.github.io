@@ -8,8 +8,6 @@ This chapter provides the basic information to get started with ROS2 on your AwC
 Network Connection
 -------------------
 
-.. note:: Please read the inspection document to get the definite network configuration of your platform.
-
 By default your AwCombo platform will try to connect to the wireless network with SSID **awcombo** .
 
 First power up the WiFi access point included and wait until the network awcombo is available. Optionally connect the access point to your company/home network via ethernet to enable internet access on the platform when needed.
