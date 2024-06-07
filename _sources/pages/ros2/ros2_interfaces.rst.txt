@@ -9,14 +9,15 @@ Topics
 ::
     /amcl_pose
     /attached_collision_object
+    /awtube/awtube_ros2_driver/transition_event
+    /awtube/cartesian_jog
+    /awtube/joint_jog
     /awtube/joint_states
-    /awtube_ros2_driver/transition_event
     /battery_state
     /behavior_server/transition_event
     /behavior_tree_log
     /bond
     /bt_navigator/transition_event
-    /clicked_point
     /cmd_vel
     /collision_object
     /controller_server/transition_event
@@ -51,7 +52,6 @@ Topics
     /map_pose
     /map_server/transition_event
     /map_tile
-    /map_updates
     /monitored_planning_scene
     /motion_plan_request
     /neo/joint_states
@@ -63,13 +63,9 @@ Topics
     /planner_server/transition_event
     /planning_scene
     /planning_scene_world
-    /pose_viz
-    /recognized_object_array
     /robot_description
     /robot_description_semantic
     /rosout
-    /rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic/feedback
-    /rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic/update
     /scan
     /segments
     /segments/visualization
@@ -84,7 +80,7 @@ Actions
 -------------------
 **root@debian:/awcombo_ros2# ros2 topic action**
 ::
-    /CSP/follow_joint_trajectory
+    /awtube/follow_joint_trajectory
     /backup
     /compute_path_through_poses
     /compute_path_to_pose
@@ -92,8 +88,8 @@ Actions
     /execute_trajectory
     /follow_path
     /follow_waypoints
-    /move_action               
-    /navigate_through_poses     
+    /move_action
+    /navigate_through_poses
     /navigate_to_pose
     /spin
     /wait
@@ -103,17 +99,20 @@ Services
 **root@debian:/awcombo_ros2# ros2 topic services**
 ::
     /apply_planning_scene
-    /awtube_ros2_driver/change_state
-    /awtube_ros2_driver/describe_parameters
-    /awtube_ros2_driver/get_available_states
-    /awtube_ros2_driver/get_available_transitions
-    /awtube_ros2_driver/get_parameter_types
-    /awtube_ros2_driver/get_parameters
-    /awtube_ros2_driver/get_state
-    /awtube_ros2_driver/get_transition_graph
-    /awtube_ros2_driver/list_parameters
-    /awtube_ros2_driver/set_parameters
-    /awtube_ros2_driver/set_parameters_atomically
+    /awtube/awtube_ros2_driver/change_state
+    /awtube/awtube_ros2_driver/describe_parameters
+    /awtube/awtube_ros2_driver/get_available_states
+    /awtube/awtube_ros2_driver/get_available_transitions
+    /awtube/awtube_ros2_driver/get_parameter_types
+    /awtube/awtube_ros2_driver/get_parameters
+    /awtube/awtube_ros2_driver/get_state
+    /awtube/awtube_ros2_driver/get_transition_graph
+    /awtube/awtube_ros2_driver/list_parameters
+    /awtube/awtube_ros2_driver/set_parameters
+    /awtube/awtube_ros2_driver/set_parameters_atomically
+    /awtube/disable
+    /awtube/enable
+    /awtube/set_dout
     /behavior_server/change_state
     /behavior_server/describe_parameters
     /behavior_server/get_available_states
@@ -187,12 +186,6 @@ Services
     /global_costmap/global_costmap/list_parameters
     /global_costmap/global_costmap/set_parameters
     /global_costmap/global_costmap/set_parameters_atomically
-    /interactive_marker_display_94410643643360/describe_parameters
-    /interactive_marker_display_94410643643360/get_parameter_types
-    /interactive_marker_display_94410643643360/get_parameters
-    /interactive_marker_display_94410643643360/list_parameters
-    /interactive_marker_display_94410643643360/set_parameters
-    /interactive_marker_display_94410643643360/set_parameters_atomically
     /is_path_valid
     /joint_state_publisher/describe_parameters
     /joint_state_publisher/get_parameter_types
@@ -282,12 +275,12 @@ Services
     /move_group/list_parameters
     /move_group/set_parameters
     /move_group/set_parameters_atomically
-    /move_group_private_94102616251424/describe_parameters
-    /move_group_private_94102616251424/get_parameter_types
-    /move_group_private_94102616251424/get_parameters
-    /move_group_private_94102616251424/list_parameters
-    /move_group_private_94102616251424/set_parameters
-    /move_group_private_94102616251424/set_parameters_atomically
+    /move_group_private_94505621748144/describe_parameters
+    /move_group_private_94505621748144/get_parameter_types
+    /move_group_private_94505621748144/get_parameters
+    /move_group_private_94505621748144/list_parameters
+    /move_group_private_94505621748144/set_parameters
+    /move_group_private_94505621748144/set_parameters_atomically
     /moveit_simple_controller_manager/describe_parameters
     /moveit_simple_controller_manager/get_parameter_types
     /moveit_simple_controller_manager/get_parameters
@@ -369,19 +362,6 @@ Services
     /robot_state_publisher/list_parameters
     /robot_state_publisher/set_parameters
     /robot_state_publisher/set_parameters_atomically
-    /rviz2/describe_parameters
-    /rviz2/get_parameter_types
-    /rviz2/get_parameters
-    /rviz2/list_parameters
-    /rviz2/set_parameters
-    /rviz2/set_parameters_atomically
-    /rviz2_private_140532684178672/describe_parameters
-    /rviz2_private_140532684178672/get_parameter_types
-    /rviz2_private_140532684178672/get_parameters
-    /rviz2_private_140532684178672/list_parameters
-    /rviz2_private_140532684178672/set_parameters
-    /rviz2_private_140532684178672/set_parameters_atomically
-    /rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic/get_interactive_markers
     /save_map
     /segmentation/describe_parameters
     /segmentation/get_parameter_types
@@ -418,3 +398,4 @@ Services
     /waypoint_follower/list_parameters
     /waypoint_follower/set_parameters
     /waypoint_follower/set_parameters_atomically
+
