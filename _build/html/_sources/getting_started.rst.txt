@@ -1,0 +1,27 @@
+.. _getting-started:
+
+Getting Started
+===============
+
+This chapter provides the basic information to get started with ROS2 on your AwCombo platform.
+
+Network Connection
+-------------------
+
+.. note:: Please read the inspection document to get the definite network configuration of your platform.
+
+By default your AwCombo platform will try to connect to the wireless network aw_wifi_demo .
+
+First power up the WiFi access point included and wait until the network aw_wifi_demo is available. Optionally connect the access point to your company/home network via ethernet to enable internet access on the platform when needed.
+
+Next you may connect your PC to aw_wifi_demo too, the password can be found on the access point's exterior.
+
+The IP-Address of your mobile platform is 192.168.3.78.
+
+SSH shell
+-------------------------------
+Once the platform has booted and your PC is connected to aw_wifi_demo you can connect to the platform using the Remmina Remote Desktop Client application. An example setup is shown below:
+
+.. figure:: remmina.png
+
+Remmina should already be installed on most Ubuntu distributions. See https://remmina.org/ for more information.
