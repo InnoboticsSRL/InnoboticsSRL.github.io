@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Getting Started &mdash; AwCombo 1.0.0 documentation</title>
+  <title>Getting Started &mdash; ComboFox 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="ROS2" href="ros2/ros2.html" />
-    <link rel="prev" title="Welcome to AwCombo’s documentation!" href="../index.html" /> 
+    <link rel="prev" title="Welcome to ComboFox’s documentation!" href="../index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -35,7 +35,7 @@
           
           <a href="../index.html">
             
-              <img src="../_static/logo-2b.png" class="logo" alt="Logo"/>
+              <img src="../_static/logo-IBT_positivo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -49,7 +49,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#network-connection">Network Connection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#bringup-awcombo">Bringup AwCombo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bringup-combofox">Bringup ComboFox</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ros2/ros2.html">ROS2</a></li>
@@ -61,7 +61,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">AwCombo</a>
+          <a href="../index.html">ComboFox</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -81,31 +81,31 @@
              
   <section id="getting-started">
 <span id="id1"></span><h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h1>
-<p>This chapter provides the basic information to get started with ROS2 on your AwCombo platform.</p>
+<p>This chapter provides the basic information to get started with ROS2 on your ComboFox platform.</p>
 <section id="network-connection">
 <h2>Network Connection<a class="headerlink" href="#network-connection" title="Link to this heading"></a></h2>
-<p>By default your AwCombo platform will try to connect to the wireless network with SSID <strong>awcombo</strong> .</p>
-<p>First power up the WiFi access point included and wait until the network awcombo is available. Optionally connect the access point to your company/home network via ethernet to enable internet access on the platform when needed.</p>
-<p>Next you may connect your PC to awcombo too, the password can be found on the access point’s exterior.</p>
-<p>The IP-Address of your mobile platform is <strong>192.168.0.5</strong>.
-Once the platform has booted and your PC is connected to awcombo you can connect to the platform using:</p>
+<p>By default your ComboFox platform will try to connect to the wireless network with SSID <strong>awcombo</strong> .</p>
+<p>First power up the WiFi access point included and wait until the network ComboFox is available. Optionally connect the access point to your company/home network via ethernet to enable internet access on the platform when needed.</p>
+<p>Next you may connect your PC to ComboFox too, the password can be found on the access point’s exterior.</p>
+<p>The IP-Address of your mobile platform is <strong>192.168.0.4</strong>.
+Once the platform has booted and your PC is connected to ComboFox you can connect to the platform using:</p>
 <ul class="simple">
 <li><p>SSH</p></li>
 <li><p>VNC</p></li>
 </ul>
 </section>
-<section id="bringup-awcombo">
-<h2>Bringup AwCombo<a class="headerlink" href="#bringup-awcombo" title="Link to this heading"></a></h2>
-<p>Please follows the following steps to turn on AwCombo platform:</p>
+<section id="bringup-combofox">
+<h2>Bringup ComboFox<a class="headerlink" href="#bringup-combofox" title="Link to this heading"></a></h2>
+<p>Please follows the following steps to turn on ComboFox platform:</p>
 <ol class="arabic simple">
 <li><p>Power up Wifi access</p></li>
 <li><p>Turning on the key selector</p></li>
 <li><p>Resett clicking the reset button three times</p></li>
-<li><p>You are ready to command AwCombo</p></li>
+<li><p>You are ready to command ComboFox</p></li>
 </ol>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>By turning on awcombo with the key selector the <cite>docker compose up</cite> command will launch the appropriate controllers, actions, topics and services. <strong>Wheel homing and awtube arm pairing will be performed</strong>.</p>
+<p>By turning on ComboFox with the key selector the <cite>docker compose up</cite> command will launch the appropriate controllers, actions, topics and services. <strong>Wheel homing and awtube arm pairing will be performed</strong>.</p>
 </div>
 <p>If everything goes well from <cite>rviz2</cite> you should be able to see</p>
 <figure class="align-default">
@@ -118,14 +118,14 @@ Once the platform has booted and your PC is connected to awcombo you can connect
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to AwCombo’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to ComboFox’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="ros2/ros2.html" class="btn btn-neutral float-right" title="ROS2" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Automationware.</p>
+    <p>&#169; Copyright 2024, Innobotics.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

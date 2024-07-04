@@ -5,7 +5,7 @@ ROS2 Interfaces
 
 Topics
 -------------------
-**root@debian:/awcombo_ros2# ros2 topic list**
+**root@debian:/ComboFox_ros2# ros2 topic list**
 ::
     /amcl_pose
     /attached_collision_object
@@ -78,7 +78,7 @@ Topics
 
 Actions
 -------------------
-**root@debian:/awcombo_ros2# ros2 topic action**
+**root@debian:/ComboFox_ros2# ros2 topic action**
 ::
     /awtube/follow_joint_trajectory
     /backup
@@ -96,7 +96,7 @@ Actions
 
 Services
 -------------------
-**root@debian:/awcombo_ros2# ros2 topic services**
+**root@debian:/ComboFox_ros2# ros2 topic services**
 ::
     /apply_planning_scene
     /awtube/awtube_ros2_driver/change_state
