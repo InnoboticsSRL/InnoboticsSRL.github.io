@@ -20,4 +20,3 @@ Welcome to ComboFox's documentation!
 .. * :ref:`genindex`
 .. * :ref:`modindex`
 .. * :ref:`search`
-
