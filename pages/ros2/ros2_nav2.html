@@ -104,13 +104,11 @@
 <p>Depending on the requirement, the mapping parameters can be changed under <code class="docutils literal notranslate"><span class="pre">~/your_workspace/src/neo_mpo_700/config/navigation/mapping.yaml</span></code></p>
 </div>
 <p>1. Run the mapping bringup node, which enable only the mobile base, without navigation:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ros2</span> <span class="n">launch</span> <span class="n">ComboFox_moveit_config</span> <span class="n">map_bringup</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ros2</span> <span class="n">launch</span> <span class="n">awcombo_moveit_config</span> <span class="n">map_bringup</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
-<ol class="arabic simple" start="2">
-<li><p>Start creating the map, use the following command</p></li>
-</ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ros2 launch neo_mpo_700 mapping.launch.py parameters:=~/$your_workspace/src/neo_base/neo_mpo_700-2/configs/navigation/mapping.yaml
+<p>2. Start creating the map, use the following command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ros2</span> <span class="n">launch</span> <span class="n">neo_mpo_700</span><span class="o">-</span><span class="mi">2</span> <span class="n">mapping</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -125,10 +123,9 @@
 <section id="saving-map">
 <h3>Saving map<a class="headerlink" href="#saving-map" title="Permalink to this heading"></a></h3>
 <p>To save the map, use the following command</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ros2</span> <span class="n">run</span> <span class="n">nav2_map_server</span> <span class="n">map_saver_cli</span> <span class="o">-</span><span class="n">f</span> <span class="o">~/</span><span class="n">to_your_workspace</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">neo_base</span><span class="o">/</span><span class="n">neo_mpo_700</span><span class="o">-</span><span class="mi">2</span><span class="o">/</span><span class="n">configs</span><span class="o">/</span><span class="n">navigation</span><span class="o">/</span><span class="n">maps</span><span class="o">/</span>
-</pre></div>
-</div>
 <dl class="simple">
+<dt>::</dt><dd><p>ros2 run nav2_map_server map_saver_cli -f ~/your_workspace/src/neo_base/neo_mpo_700-2/configs/navigation/maps/</p>
+</dd>
 <dt>In the map folder, two essential files are created</dt><dd><ol class="arabic simple">
 <li><p>your_map_name.pgm</p></li>
 <li><p>your_map_name.yaml</p></li>

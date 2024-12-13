@@ -18,7 +18,6 @@ The IP-Address of your mobile platform is **192.168.0.4**.
 Once the platform has booted and your PC is connected to ComboFox you can connect to the platform using:
 
 - SSH
-- VNC
 
 Bringup ComboFox
 -------------------
@@ -26,11 +25,11 @@ Please follows the following steps to turn on ComboFox platform:
 
 1. Power up Wifi access
 2. Turning on the key selector
-3. Resett clicking the reset button three times
+3. Reset clicking the reset button three times
 4. You are ready to command ComboFox
 
-.. warning:: By turning on ComboFox with the key selector the `docker compose up` command will launch the appropriate controllers, actions, topics and services. **Wheel homing and awtube arm pairing will be performed**.
+.. warning:: By turning on ComboFox with the key selector a startup procedure will launch the appropriate controllers, actions, topics and services. **Wheel homing and awtube arm pairing will be performed**.
 
-If everything goes well from `rviz2` you should be able to see
+Hopefully from `rviz2` or from others visualizators you should be able to see something like
 
 .. figure:: ./img/rviz.png
