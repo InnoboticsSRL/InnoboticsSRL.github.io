@@ -20,13 +20,11 @@ Creating map
 .. note:: Depending on the requirement, the mapping parameters can be changed under ``~/your_workspace/src/neo_mpo_700/config/navigation/mapping.yaml``
 1. Run the mapping bringup node, which enable only the mobile base, without navigation:
 ::
-	ros2 launch ComboFox_moveit_config map_bringup.launch.py
+	ros2 launch awcombo_moveit_config map_bringup.launch.py
 
 2. Start creating the map, use the following command
-
 ::
-
-	ros2 launch neo_mpo_700 mapping.launch.py parameters:=~/$your_workspace/src/neo_base/neo_mpo_700-2/configs/navigation/mapping.yaml
+	ros2 launch neo_mpo_700-2 mapping.launch.py
 
 .. warning:: Do not close the launch until saving the map.
 
@@ -40,8 +38,7 @@ Saving map
 To save the map, use the following command
 
 ::
-
-	ros2 run nav2_map_server map_saver_cli -f ~/to_your_workspace/src/neo_base/neo_mpo_700-2/configs/navigation/maps/
+	ros2 run nav2_map_server map_saver_cli -f ~/your_workspace/src/neo_base/neo_mpo_700-2/configs/navigation/maps/
 
 In the map folder, two essential files are created
 	1. your_map_name.pgm
