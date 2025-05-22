@@ -3,18 +3,18 @@
 ROS2 Interfaces
 =============================
 
+.. warning:: This project is under active development! The following interfaces can change
+
 .. warning::
     This section may be out of date. Please check the latest version of the ComboFox ROS2 package for the most accurate information.
 
 Topics
 -------------------
-**root@debian:/ComboFox_ros2# ros2 topic list**
+**ros2 topic list**
 ::
     /amcl_pose
     /attached_collision_object
     /awtube/awtube_ros2_driver/transition_event
-    /awtube/cartesian_jog
-    /awtube/joint_jog
     /awtube/joint_states
     /battery_state
     /behavior_server/transition_event
@@ -81,7 +81,7 @@ Topics
 
 Actions
 -------------------
-**root@debian:/ComboFox_ros2# ros2 topic action**
+**ros2 topic action**
 ::
     /awtube/follow_joint_trajectory
     /backup
@@ -99,7 +99,7 @@ Actions
 
 Services
 -------------------
-**root@debian:/ComboFox_ros2# ros2 topic services**
+**ros2 topic services**
 ::
     /apply_planning_scene
     /awtube/awtube_ros2_driver/change_state

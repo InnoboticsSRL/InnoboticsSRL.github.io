@@ -18,19 +18,14 @@ Creating map
 ************
 
 .. note:: Depending on the requirement, the mapping parameters can be changed under ``~/your_workspace/src/neo_mpo_700/config/navigation/mapping.yaml``
-1. Run the mapping bringup node, which enable only the mobile base, without navigation:
+1. Stop all the running nodes
+2. Run the mapping bringup node, which enable only the mobile base, without navigation:
 ::
-	ros2 launch ComboFox_moveit_config map_bringup.launch.py
-
-2. Start creating the map, use the following command
-
-::
-
-	ros2 launch neo_mpo_700 mapping.launch.py parameters:=~/$your_workspace/src/neo_base/neo_mpo_700-2/configs/navigation/mapping.yaml
+	ros2 launch ibt_ros2_bringup bringup.launch.py mode:=mapping
 
 .. warning:: Do not close the launch until saving the map.
 
-3. After starting the mapping, in the RViz, the initial stripes of the maps can be found
+3. After starting the mapping, in the RViz or Foxglove, the initial stripes of the maps can be found
 
 4. Navigate the robot around the environment, in order to further build the map.
 
@@ -40,8 +35,7 @@ Saving map
 To save the map, use the following command
 
 ::
-
-	ros2 run nav2_map_server map_saver_cli -f ~/to_your_workspace/src/neo_base/neo_mpo_700-2/configs/navigation/maps/
+	ros2 run nav2_map_server map_saver_cli -f ~/your_workspace/src/neo_base/neo_mpo_700-2/configs/navigation/maps/
 
 In the map folder, two essential files are created
 	1. your_map_name.pgm
