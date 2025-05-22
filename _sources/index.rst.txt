@@ -4,13 +4,13 @@
    contain the root `toctree` directive.
 
 Welcome to ComboFox's documentation!
-===================================
+====================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   pages/getting_started.rst
+   pages/getting_started.md
    pages/ros2/ros2.rst
 
 

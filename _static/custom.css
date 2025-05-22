@@ -1,0 +1,48 @@
+/* Sfondo principale (contenuto) */
+.wy-body-for-nav {
+    background-color: #f0f0f0;
+}
+
+/* Sfondo barra laterale sinistra */
+.wy-nav-side {
+    background-color: #1a1a1a;
+}
+
+/* Colore del testo nella barra laterale */
+.wy-side-nav-search, .wy-menu-vertical a {
+    color: #ffffff;
+}
+
+/* Logo su sfondo scuro */
+.wy-side-nav-search {
+    background-color: #1a1a1a;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #1a1a1a;
+}
+
+.caption-text {
+    color: #CC5500;
+}
+
+/* --------------- Links --------------- */
+/* Colore del testo per i link normali */
+a {
+    color: #CC5500;
+}
+
+/* Colore del testo per i link al passaggio del mouse (hover) */
+a:hover {
+    color: #FF5733;
+}
+
+/* Colore per i link attivi */
+a:active {
+    color: #C70039; /* Rosso scuro per il link attivo */
+}
+
+/* Colore per i link visitati (già cliccati) */
+a:visited {
+    color: #900C3F; /* Un colore scuro per i link visitati */
+}

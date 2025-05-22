@@ -1,0 +1,517 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ibt_ros2_driver &mdash; ComboFox 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=ec3804ef" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=73cda6fb"></script>
+      <script src="../../../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="prev" title="ROS2 Packages" href="../../ros2_pkgs.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html">
+            
+              <img src="../../../../_static/logo-IBT_positivo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../ros2.html">ROS2</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../ros2_interfaces.html">ROS2 Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ros2_nav2.html">Nav2</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../ros2_pkgs.html">ROS2 Packages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ibt_ros2_driver</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#general-objectives-of-the-project">General Objectives of the Project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configurable-variables-at-node-startup">Configurable Variables at Node Startup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ibt-ros2-interfaces">ibt_ros2_interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-to-use-the-package">How to Use the Package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visualizing-topics">Visualizing Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#moving-the-arm">Moving the Arm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cancelling-a-request">Cancelling a Request:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sending-service-requests">Sending Service Requests:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">ComboFox</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../ros2.html">ROS2</a></li>
+          <li class="breadcrumb-item"><a href="../../ros2_pkgs.html">ROS2 Packages</a></li>
+      <li class="breadcrumb-item active">ibt_ros2_driver</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/pages/ros2/pkgs/ibt_ros2_driver/ibt_ros2_driver.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ibt-ros2-driver">
+<h1>ibt_ros2_driver<a class="headerlink" href="#ibt-ros2-driver" title="Permalink to this heading"></a></h1>
+<p>For controlling the movement of the robotic arm, a ROS2 package has been developed that interfaces with the Motorcortex web server. Within this package, an action server has been primarily implemented, whose task is to receive and manage movement requests from a user, executing them in a safe and reliable manner</p>
+<section id="general-objectives-of-the-project">
+<h2>General Objectives of the Project<a class="headerlink" href="#general-objectives-of-the-project" title="Permalink to this heading"></a></h2>
+<p>This section describes the main goals of the project at a conceptual level, without going into specific software implementation details.</p>
+<p>The objective of the project is to develop a controller capable of receiving commands from a user to move a robotic arm, while ensuring the internal consistency of the system’s states. The controller provides the following functionalities:</p>
+<ol class="arabic simple">
+<li><p><strong>Joint coupling and error recovery</strong><br />
+This functionality allows the user to couple the joints of the robot, an operation required to enable movement commands. It also makes it possible to bring the system back to an operational state in the event of execution errors.</p></li>
+<li><p><strong>Canceling an ongoing operation</strong><br />
+For safety or operational reasons, the user must be able to interrupt a movement currently in progress. The controller correctly handles the cancellation of the request.</p></li>
+<li><p><strong>Publishing the robot’s status</strong><br />
+The system provides in real time:</p></li>
+</ol>
+<ul class="simple">
+<li><p>The current positions of the robotic arm joints</p></li>
+<li><p>The current status of the robot, according to its internal state machine</p></li>
+</ul>
+<ol class="arabic simple" start="4">
+<li><p><strong>Movement execution</strong><br />
+The controller supports various types of movement:</p></li>
+</ol>
+<ul class="simple">
+<li><p><strong>Joint Movement</strong>: Movement is executed by specifying a list of coordinates in joint space.</p></li>
+<li><p><strong>Point-To-Point (P2P) Movement</strong>: The tool at the end of the arm reaches a specific position in Cartesian space.</p></li>
+<li><p><strong>Circular Movement</strong>: The arm’s tool executes a circular movement in space.</p></li>
+<li><p><strong>Linear Movement</strong>: The tool moves along a linear trajectory between two points in space.</p></li>
+</ul>
+<ol class="arabic simple" start="5">
+<li><p><strong>Changing the dout state state</strong></p></li>
+<li><p><strong>Publishing joint space positions and internal state of the arm</strong></p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="configurable-variables-at-node-startup">
+<h2>Configurable Variables at Node Startup<a class="headerlink" href="#configurable-variables-at-node-startup" title="Permalink to this heading"></a></h2>
+<p>This section describes the variables that the user can modify before starting the node.<br />
+The variables are defined in the launch file <code class="docutils literal notranslate"><span class="pre">ibt_ros2_driver.launch.py</span></code>.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">namespace</span></code></p></td>
+<td><p>Namespace to assign to the node</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">url</span></code></p></td>
+<td><p>WebSocket URL for the connection</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prefix</span></code></p></td>
+<td><p>Prefix to use for the node</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">timeout_ms</span></code></p></td>
+<td><p>Connection timeout (in milliseconds)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">login</span></code></p></td>
+<td><p>Username for WebSocket authentication</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">password</span></code></p></td>
+<td><p>Password for WebSocket authentication</p></td>
+</tr>
+</tbody>
+</table>
+<p>These variables can be passed as arguments when launching the node using the <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">launch</span></code> command, for example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>ibt_ros2_driver<span class="w"> </span>ibt_ros2_driver.launch.py<span class="w"> </span>url:<span class="o">=</span>ws://localhost:8080<span class="w"> </span>login:<span class="o">=</span>user<span class="w"> </span>password:<span class="o">=</span>pass
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="ibt-ros2-interfaces">
+<h2>ibt_ros2_interfaces<a class="headerlink" href="#ibt-ros2-interfaces" title="Permalink to this heading"></a></h2>
+<p>The necessary actions, messages, and services for the driver’s operation are defined here.</p>
+<section id="messages">
+<h3>Messages<a class="headerlink" href="#messages" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>MoveReq.msg</strong>: This message is used to construct the type of instruction to send to the server.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">int32</span> <span class="n">move_type</span>  <span class="c1"># possible move to be executed</span>
+<span class="c1"># enums </span>
+<span class="n">int32</span> <span class="n">PTP</span><span class="o">=</span><span class="mi">0</span>     
+<span class="n">int32</span> <span class="n">LIN</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">int32</span> <span class="n">JOINT</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">int32</span> <span class="n">CIRC</span><span class="o">=</span><span class="mi">3</span>
+<span class="n">builtin_interfaces</span><span class="o">/</span><span class="n">Duration</span> <span class="n">duration</span>
+
+<span class="n">PoseRPY</span><span class="p">[]</span> <span class="n">pose</span>         <span class="c1"># list of Eulerian poses</span>
+<span class="n">float64</span><span class="p">[]</span> <span class="n">positions</span>    <span class="c1"># list of joint positions</span>
+
+<span class="n">float64</span> <span class="n">scale_vel_factor</span>
+<span class="n">float64</span> <span class="n">scale_acc_factor</span>
+<span class="n">float64</span> <span class="n">angle_radius</span> 
+</pre></div>
+</div>
+<p>When constructing the message, the fields <code class="docutils literal notranslate"><span class="pre">pose</span></code> and <code class="docutils literal notranslate"><span class="pre">positions</span></code> must not be populated simultaneously, but only based on the selected move type.</p>
+<p><strong>Pose</strong> is used for the following movement types:</p>
+<ul class="simple">
+<li><p>LIN</p></li>
+<li><p>PTP</p></li>
+<li><p>CIRC: When this movement is selected, Motorcortex requires at least 3 non-aligned points to execute the correct circular motion of the arm. In this case, the field <strong>angle_radius</strong> is also filled with the angle (in radians) that the arm should travel.</p></li>
+</ul>
+<p><strong>Positions</strong> is used for JOINT</p>
+<p><strong>PoseRPY.msg</strong>: This message is used to define the Eulerian pose to be included in the <code class="docutils literal notranslate"><span class="pre">MoveReq</span></code> message.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Eulerian pose</span>
+<span class="n">float64</span> <span class="n">x</span> 
+<span class="n">float64</span> <span class="n">y</span>
+<span class="n">float64</span> <span class="n">z</span> 
+
+<span class="n">float64</span> <span class="n">roll</span>
+<span class="n">float64</span> <span class="n">pitch</span>
+<span class="n">float64</span> <span class="n">yaw</span>
+</pre></div>
+</div>
+</section>
+<section id="actions">
+<h3>Actions<a class="headerlink" href="#actions" title="Permalink to this heading"></a></h3>
+<p>The action is defined as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Request</span>
+<span class="n">std_msgs</span><span class="o">/</span><span class="n">Header</span> <span class="n">header</span>  
+<span class="n">MoveReq</span><span class="p">[]</span> <span class="n">instructions</span>  <span class="c1"># list of instructions</span>
+<span class="o">---</span>
+<span class="c1"># Result</span>
+<span class="n">int32</span> <span class="n">error_code</span>        <span class="c1"># error code</span>
+<span class="n">int32</span> <span class="n">SUCCESSFUL</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">int32</span> <span class="n">INVALID_GOAL</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+<span class="n">string</span> <span class="n">error_str</span>        <span class="c1"># error message</span>
+<span class="o">---</span>
+<span class="c1"># Feedback</span>
+<span class="n">string</span> <span class="n">status</span>           <span class="c1"># status of the move</span>
+</pre></div>
+</div>
+<p>With this action, the user can send a request to execute a list of sequential movements by building a list of <code class="docutils literal notranslate"><span class="pre">MoveReq</span></code>, essentially creating a program for the robot to follow.</p>
+<p>During motion execution, the client receives feedback corresponding to the status of the program’s execution.</p>
+<p>When the server completes the operation, the client receives a result code indicating the overall outcome of the request.</p>
+</section>
+<section id="services">
+<h3>Services<a class="headerlink" href="#services" title="Permalink to this heading"></a></h3>
+<p>The services used are:</p>
+<ul class="simple">
+<li><p><strong>rearm</strong>:<br />
+The rearm service is used to bring the robot out of various possible error states and re-enable the joints.<br />
+The required service type is already defined in the ROS ecosystem and is called <a class="reference external" href="https://docs.ros2.org/foxy/api/std_srvs/srv/Trigger.html">TRIGGER</a>.<br />
+This type of interface is used exclusively for activating the rearm functionality.</p></li>
+<li><p><strong>set_output</strong>:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uint8</span> <span class="n">value</span>
+<span class="o">---</span>
+<span class="nb">bool</span> <span class="n">success</span>
+<span class="n">string</span> <span class="n">message</span>
+</pre></div>
+</div>
+<p>This service allows control over the dout state states, and the enum defines the possible states to assign to the <code class="docutils literal notranslate"><span class="pre">value</span></code> field.</p>
+<p>At the end of the operation, the server sends back to the client a result consisting of a boolean indicating the success of the request and a string message with a detailed error, if any occurred.</p>
+</section>
+</section>
+<section id="how-to-use-the-package">
+<h2>How to Use the Package<a class="headerlink" href="#how-to-use-the-package" title="Permalink to this heading"></a></h2>
+<p>This package provides interfaces to control a robotic arm. The main functionalities include:</p>
+<ul class="simple">
+<li><p><strong>Action Server</strong>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">move_arm</span></code>: sends motion commands to the robotic arm and cancels them.</p></li>
+</ul>
+</li>
+<li><p><strong>Services</strong>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">rearm</span></code>: corrects the internal state of the arm.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_output</span></code>: manages the dout state.</p></li>
+</ul>
+</li>
+<li><p><strong>Publishers</strong>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">joint_states</span></code>: publishes the position, velocity, and acceleration of the joints.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">logic_state</span></code>: publishes the internal logical state of the arm based on the state machine provided by Motorcortex.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="visualizing-topics">
+<h2>Visualizing Topics<a class="headerlink" href="#visualizing-topics" title="Permalink to this heading"></a></h2>
+<p>Once the node is running, you can view the data published on <code class="docutils literal notranslate"><span class="pre">joint_states</span></code> and <code class="docutils literal notranslate"><span class="pre">logic_state</span></code> using standard ROS 2 commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>&lt;topic_name&gt;
+</pre></div>
+</div>
+<p>Esempi:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/robofox/joint_states
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/robofox/logic_state
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="moving-the-arm">
+<h2>Moving the Arm<a class="headerlink" href="#moving-the-arm" title="Permalink to this heading"></a></h2>
+<p>To send commands to the move_arm action server, it is recommended to write a ROS 2 client. Below is a practical example.</p>
+<section id="esempio-di-client-per-il-movimento-del-braccio">
+<h3>Esempio di client per il movimento del braccio<a class="headerlink" href="#esempio-di-client-per-il-movimento-del-braccio" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.action</span><span class="w"> </span><span class="kn">import</span> <span class="n">ActionClient</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ibt_ros2_interfaces.action</span><span class="w"> </span><span class="kn">import</span> <span class="n">MoveArm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ibt_ros2_interfaces.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">MoveReq</span><span class="p">,</span> <span class="n">PoseRPY</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MoveArmClient</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;move_arm_client&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">ActionClient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MoveArm</span><span class="p">,</span> <span class="s1">&#39;/robofox/move_arm&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout_sec</span> <span class="o">=</span> <span class="mf">70.0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_pose_msg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pose_vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PoseRPY</span><span class="p">:</span>
+        <span class="n">pose</span> <span class="o">=</span> <span class="n">PoseRPY</span><span class="p">()</span>
+        <span class="n">pose</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pose</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">pose</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">pose</span><span class="o">.</span><span class="n">roll</span><span class="p">,</span> <span class="n">pose</span><span class="o">.</span><span class="n">pitch</span><span class="p">,</span> <span class="n">pose</span><span class="o">.</span><span class="n">yaw</span> <span class="o">=</span> <span class="n">pose_vector</span>
+        <span class="k">return</span> <span class="n">pose</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">send_goal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">move_type</span><span class="o">=</span><span class="s1">&#39;LIN&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Waiting for server...&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">wait_for_server</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout_sec</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Action server not available.&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">goal_msg</span> <span class="o">=</span> <span class="n">MoveArm</span><span class="o">.</span><span class="n">Goal</span><span class="p">()</span>
+
+        <span class="c1"># Pose e joint di esempio</span>
+        <span class="n">pose</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+        <span class="n">pose1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.450</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.450</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">180</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">180</span><span class="p">)])</span>
+        <span class="n">j_pos1</span> <span class="o">=</span> <span class="p">[</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="o">-</span><span class="mf">15.9</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mf">117.5</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mf">74.4</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)]</span>
+
+        <span class="c1"># Comando di homing</span>
+        <span class="n">req_homing</span> <span class="o">=</span> <span class="n">MoveReq</span><span class="p">()</span>
+        <span class="n">req_homing</span><span class="o">.</span><span class="n">move_type</span> <span class="o">=</span> <span class="n">MoveReq</span><span class="o">.</span><span class="n">JOINT</span>
+        <span class="n">req_homing</span><span class="o">.</span><span class="n">positions</span> <span class="o">=</span> <span class="p">[</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mf">0.0</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mf">90.0</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mf">90.0</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span>
+        <span class="n">req_homing</span><span class="o">.</span><span class="n">scale_vel_factor</span> <span class="o">=</span> <span class="mf">0.1</span>
+        <span class="n">req_homing</span><span class="o">.</span><span class="n">scale_acc_factor</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+        <span class="k">if</span> <span class="n">move_type</span> <span class="o">==</span> <span class="s1">&#39;LIN&#39;</span><span class="p">:</span>
+            <span class="n">req</span> <span class="o">=</span> <span class="n">MoveReq</span><span class="p">()</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">move_type</span> <span class="o">=</span> <span class="n">MoveReq</span><span class="o">.</span><span class="n">LIN</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">pose</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">create_pose_msg</span><span class="p">(</span><span class="n">pose</span><span class="o">.</span><span class="n">tolist</span><span class="p">())]</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">scale_vel_factor</span> <span class="o">=</span> <span class="mf">0.1</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">scale_acc_factor</span> <span class="o">=</span> <span class="mf">0.1</span>
+            <span class="n">goal_msg</span><span class="o">.</span><span class="n">instructions</span> <span class="o">=</span> <span class="p">[</span><span class="n">req_homing</span><span class="p">,</span> <span class="n">req</span><span class="p">]</span>
+
+        <span class="k">elif</span> <span class="n">move_type</span> <span class="o">==</span> <span class="s1">&#39;PTP&#39;</span><span class="p">:</span>
+            <span class="n">req</span> <span class="o">=</span> <span class="n">MoveReq</span><span class="p">()</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">move_type</span> <span class="o">=</span> <span class="n">MoveReq</span><span class="o">.</span><span class="n">PTP</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">pose</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">create_pose_msg</span><span class="p">(</span><span class="n">pose</span><span class="o">.</span><span class="n">tolist</span><span class="p">())]</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">scale_vel_factor</span> <span class="o">=</span> <span class="mf">0.5</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">scale_acc_factor</span> <span class="o">=</span> <span class="mf">0.5</span>
+            <span class="n">goal_msg</span><span class="o">.</span><span class="n">instructions</span> <span class="o">=</span> <span class="p">[</span><span class="n">req_homing</span><span class="p">,</span> <span class="n">req</span><span class="p">]</span>
+
+        <span class="k">elif</span> <span class="n">move_type</span> <span class="o">==</span> <span class="s1">&#39;CIRC&#39;</span><span class="p">:</span>
+            <span class="n">cart_pos_1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.675</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.4739</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">]</span>
+            <span class="n">cart_pos_2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.850</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.4739</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">]</span>
+            <span class="n">cart_pos_3</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.675</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4739</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">]</span>
+
+            <span class="n">req</span> <span class="o">=</span> <span class="n">MoveReq</span><span class="p">()</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">move_type</span> <span class="o">=</span> <span class="n">MoveReq</span><span class="o">.</span><span class="n">CIRC</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">angle_radius</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">pose</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_pose_msg</span><span class="p">(</span><span class="n">cart_pos_1</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_pose_msg</span><span class="p">(</span><span class="n">cart_pos_2</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_pose_msg</span><span class="p">(</span><span class="n">cart_pos_3</span><span class="p">)</span>
+            <span class="p">]</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">scale_vel_factor</span> <span class="o">=</span> <span class="mf">0.1</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">scale_acc_factor</span> <span class="o">=</span> <span class="mf">0.1</span>
+            <span class="n">goal_msg</span><span class="o">.</span><span class="n">instructions</span> <span class="o">=</span> <span class="p">[</span><span class="n">req</span><span class="p">]</span>
+
+        <span class="k">elif</span> <span class="n">move_type</span> <span class="o">==</span> <span class="s1">&#39;JOINT&#39;</span><span class="p">:</span>
+            <span class="n">req</span> <span class="o">=</span> <span class="n">MoveReq</span><span class="p">()</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">move_type</span> <span class="o">=</span> <span class="n">MoveReq</span><span class="o">.</span><span class="n">JOINT</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">positions</span> <span class="o">=</span> <span class="n">j_pos1</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">scale_vel_factor</span> <span class="o">=</span> <span class="mf">0.1</span>
+            <span class="n">req</span><span class="o">.</span><span class="n">scale_acc_factor</span> <span class="o">=</span> <span class="mf">0.1</span>
+            <span class="n">goal_msg</span><span class="o">.</span><span class="n">instructions</span> <span class="o">=</span> <span class="p">[</span><span class="n">req_homing</span><span class="p">]</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unknown move_type: </span><span class="si">{</span><span class="n">move_type</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Sending goal: </span><span class="si">{</span><span class="n">move_type</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal_msg</span><span class="p">,</span> <span class="n">feedback_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">feedback_callback</span><span class="p">)</span>
+        <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout_sec</span><span class="p">)</span>
+        <span class="n">goal_handle</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">goal_handle</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">accepted</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Goal was rejected or failed to send.&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Goal accepted, waiting for result...&#39;</span><span class="p">)</span>
+        <span class="n">result_future</span> <span class="o">=</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">get_result_async</span><span class="p">()</span>
+        <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_future</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout_sec</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">result_future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">result</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Result: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error_str</span><span class="si">}</span><span class="s1"> (Code: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error_code</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">feedback_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feedback_msg</span><span class="p">):</span>
+        <span class="n">feedback</span> <span class="o">=</span> <span class="n">feedback_msg</span><span class="o">.</span><span class="n">feedback</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Feedback received: </span><span class="si">{</span><span class="n">feedback</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">MoveArmClient</span><span class="p">()</span>
+
+    <span class="n">node</span><span class="o">.</span><span class="n">send_goal</span><span class="p">(</span><span class="s1">&#39;PTP&#39;</span><span class="p">)</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">send_goal</span><span class="p">(</span><span class="s1">&#39;LIN&#39;</span><span class="p">)</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">send_goal</span><span class="p">(</span><span class="s1">&#39;CIRC&#39;</span><span class="p">)</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">send_goal</span><span class="p">(</span><span class="s1">&#39;JOINT&#39;</span><span class="p">)</span>
+
+    <span class="n">node</span><span class="o">.</span><span class="n">destroy_node</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong>Explanation:</strong>
+The action server expects a message of type MoveArm.Goal, which contains a list of instructions of type MoveReq.
+Each MoveReq defines:</p>
+<ul class="simple">
+<li><p>the type of movement (JOINT, LIN, PTP, CIRC);</p></li>
+<li><p>the targets (joint positions or Cartesian poses PoseRPY);</p></li>
+<li><p>velocity and acceleration scaling factors (and the angle for circular motion).</p></li>
+</ul>
+<p><strong>More details:</strong></p>
+<p>The function <code class="docutils literal notranslate"><span class="pre">create_pose_msg()</span></code> is a utility to convert a list of 6 values into a properly structured <code class="docutils literal notranslate"><span class="pre">PoseRPY</span></code> message.</p>
+</section>
+</section>
+<section id="cancelling-a-request">
+<h2>Cancelling a Request:<a class="headerlink" href="#cancelling-a-request" title="Permalink to this heading"></a></h2>
+<p>This section shows how to cancel a motion request. The example is taken from a pytest file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_cancel_goal</span><span class="p">(</span><span class="n">rclpy_init_shutdown</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">action_client</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">action_client</span><span class="o">.</span><span class="n">wait_for_server</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="n">timeout_sec</span><span class="p">)</span>
+
+    <span class="n">goal</span> <span class="o">=</span> <span class="n">MoveArm</span><span class="o">.</span><span class="n">Goal</span><span class="p">()</span>
+    <span class="n">req</span> <span class="o">=</span> <span class="n">MoveReq</span><span class="p">()</span>
+    <span class="n">req</span><span class="o">.</span><span class="n">move_type</span> <span class="o">=</span> <span class="n">MoveReq</span><span class="o">.</span><span class="n">JOINT</span>
+    <span class="n">req</span><span class="o">.</span><span class="n">scale_vel_factor</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">req</span><span class="o">.</span><span class="n">positions</span> <span class="o">=</span> <span class="n">j_pos</span>
+    <span class="n">goal</span><span class="o">.</span><span class="n">instructions</span> <span class="o">=</span> <span class="p">[</span><span class="n">req_zero</span><span class="p">,</span> <span class="n">req_homing</span><span class="p">,</span> <span class="n">req</span><span class="p">]</span>
+
+    <span class="n">future</span> <span class="o">=</span> <span class="n">action_client</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal</span><span class="p">,</span> <span class="n">feedback_callback</span><span class="o">=</span><span class="n">feedback_callback</span><span class="p">)</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">future</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="n">timeout_sec</span><span class="p">)</span>
+    <span class="n">goal_handle</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+     
+    <span class="k">assert</span> <span class="n">goal_handle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">assert</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">accepted</span>
+
+
+    <span class="n">cancel_future</span> <span class="o">=</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">cancel_goal_async</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">cancel_future</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="n">timeout_sec</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">accepted</span>
+    <span class="n">cancel_response</span> <span class="o">=</span> <span class="n">cancel_future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+    <span class="n">node</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;cancel goal is sent&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">cancel_response</span><span class="o">.</span><span class="n">return_code</span> <span class="o">==</span> <span class="n">CancelGoal</span><span class="o">.</span><span class="n">Response</span><span class="o">.</span><span class="n">ERROR_NONE</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">cancel_response</span><span class="o">.</span><span class="n">goals_canceling</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="k">assert</span> <span class="n">cancel_response</span><span class="o">.</span><span class="n">goals_canceling</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">goal_id</span> <span class="o">==</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">goal_id</span>
+
+</pre></div>
+</div>
+</section>
+<section id="sending-service-requests">
+<h2>Sending Service Requests:<a class="headerlink" href="#sending-service-requests" title="Permalink to this heading"></a></h2>
+<p>This section shows how to send service requests.</p>
+<p><strong>rearm :</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+   <span class="k">def</span><span class="w"> </span><span class="nf">test_rearm_service</span><span class="p">(</span><span class="n">rclpy_init_shutdown</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">service_client</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">service_client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+    
+    <span class="n">request</span> <span class="o">=</span> <span class="n">Trigger</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+    <span class="n">future</span> <span class="o">=</span> <span class="n">service_client</span><span class="o">.</span><span class="n">call_async</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">future</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+    
+    <span class="k">assert</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">assert</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">success</span>
+    <span class="k">assert</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">message</span> <span class="o">==</span> <span class="s2">&quot;Rearmed successfully&quot;</span>
+
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../ros2_pkgs.html" class="btn btn-neutral float-left" title="ROS2 Packages" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Innobotics.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
