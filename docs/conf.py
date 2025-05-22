@@ -7,15 +7,20 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'ComboFox'
-copyright = '2024, Innobotics'
+copyright = '2025, Innobotics'
 author = 'Innobotics'
-release = '1.0.0'
+release = '2.0.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
-
+extensions = ['myst_parser']
+myst_enable_extensions = [
+    "colon_fence",    
+    "deflist",
+    "html_admonition", 
+    "html_image"
+]
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
@@ -27,6 +32,9 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 html_logo = "logo-IBT_positivo.png"
+html_css_files = [
+    'custom.css',
+]
 html_theme_options = {
     'logo_only': True,
     'display_version': False,

@@ -3,6 +3,9 @@
 ROS2 Interfaces
 =============================
 
+.. warning::
+    This section may be out of date. Please check the latest version of the ComboFox ROS2 package for the most accurate information.
+
 Topics
 -------------------
 **root@debian:/ComboFox_ros2# ros2 topic list**
