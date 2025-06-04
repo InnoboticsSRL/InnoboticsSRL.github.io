@@ -48,142 +48,39 @@ The variables are defined in the launch file `ibt_ros2_driver.launch.py`.
 These variables can be passed as arguments when launching the node using the `ros2 launch` command, for example:
 
 ```bash
-ros2 launch ibt_ros2_driver ibt_ros2_driver.launch.py url:=ws://localhost:8080 login:=user password:=pass
+ros2 launch ibt_ros2_driver ibt_ros2_driver.launch.py url:=ws://localhost:8080
 ```
-
----
-
-## ibt_ros2_interfaces
-
-The necessary actions, messages, and services for the driver's operation are defined here.
-
-### Messages
-
-- **MoveReq.msg**: This message is used to construct the type of instruction to send to the server.
-
-```
-int32 move_type  # possible move to be executed
-# enums 
-int32 PTP=0     
-int32 LIN=1
-int32 JOINT=2
-int32 CIRC=3
-builtin_interfaces/Duration duration
-
-PoseRPY[] pose         # list of Eulerian poses
-float64[] positions    # list of joint positions
-
-float64 scale_vel_factor
-float64 scale_acc_factor
-float64 angle_radius 
-```
-
-When constructing the message, the fields `pose` and `positions` must not be populated simultaneously, but only based on the selected move type.
-
-**Pose** is used for the following movement types:
-- LIN
-- PTP
-- CIRC: When this movement is selected, Motorcortex requires at least 3 non-aligned points to execute the correct circular motion of the arm. In this case, the field **angle_radius** is also filled with the angle (in radians) that the arm should travel.
-
-**Positions** is used for JOINT
-
-**PoseRPY.msg**: This message is used to define the Eulerian pose to be included in the `MoveReq` message.
-
-```
-# Eulerian pose
-float64 x 
-float64 y
-float64 z 
-
-float64 roll
-float64 pitch
-float64 yaw
-```
-
-### Actions
-
-The action is defined as follows:
-
-```
-# Request
-std_msgs/Header header  
-MoveReq[] instructions  # list of instructions
----
-# Result
-int32 error_code        # error code
-int32 SUCCESSFUL = 0
-int32 INVALID_GOAL = -1
-
-string error_str        # error message
----
-# Feedback
-string status           # status of the move
-```
-
-With this action, the user can send a request to execute a list of sequential movements by building a list of `MoveReq`, essentially creating a program for the robot to follow.
-
-During motion execution, the client receives feedback corresponding to the status of the program's execution.
-
-When the server completes the operation, the client receives a result code indicating the overall outcome of the request.
-
-### Services
-
-The services used are:
-
-- **rearm**:  
-  The rearm service is used to bring the robot out of various possible error states and re-enable the joints.  
-  The required service type is already defined in the ROS ecosystem and is called [TRIGGER](https://docs.ros2.org/foxy/api/std_srvs/srv/Trigger.html).  
-  This type of interface is used exclusively for activating the rearm functionality.
-
-- **set_output**:
-
-```
-uint8 value
----
-bool success
-string message
-```
-
-This service allows control over the dout state states, and the enum defines the possible states to assign to the `value` field.
-
-At the end of the operation, the server sends back to the client a result consisting of a boolean indicating the success of the request and a string message with a detailed error, if any occurred.
-
 
 ## How to Use the Package
 
 This package provides interfaces to control a robotic arm. The main functionalities include:
-
-* **Action Server**:
-
-  * `move_arm`: sends motion commands to the robotic arm and cancels them.
-
-* **Services**:
-
-  * `rearm`: corrects the internal state of the arm.
-  * `set_output`: manages the dout state.
-
-* **Publishers**:
-
-  * `joint_states`: publishes the position, velocity, and acceleration of the joints.
-  * `logic_state`: publishes the internal logical state of the arm based on the state machine provided by Motorcortex.
-
----
-
-## Visualizing Topics
-
-Once the node is running, you can view the data published on `joint_states` and `logic_state` using standard ROS 2 commands:
-
 ```bash
-ros2 topic echo <topic_name>
-```
+/robofox/ibt_ros2_driver
+  Subscribers:
 
-Esempi:
+  Publishers:
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /robofox/eef_pose: ibt_ros2_interfaces/msg/PoseRPY
+    /robofox/joint_states: sensor_msgs/msg/JointState
+    /robofox/logic_state: std_msgs/msg/String
+    /rosout: rcl_interfaces/msg/Log
+  Service Servers:
+    /robofox/disarm: std_srvs/srv/Trigger
+    /robofox/ibt_ros2_driver/describe_parameters: rcl_interfaces/srv/DescribeParameters
+    /robofox/ibt_ros2_driver/get_parameter_types: rcl_interfaces/srv/GetParameterTypes
+    /robofox/ibt_ros2_driver/get_parameters: rcl_interfaces/srv/GetParameters
+    /robofox/ibt_ros2_driver/list_parameters: rcl_interfaces/srv/ListParameters
+    /robofox/ibt_ros2_driver/set_parameters: rcl_interfaces/srv/SetParameters
+    /robofox/ibt_ros2_driver/set_parameters_atomically: rcl_interfaces/srv/SetParametersAtomically
+    /robofox/rearm: std_srvs/srv/Trigger
+    /robofox/set_output: ibt_ros2_interfaces/srv/SetOutput
+  Service Clients:
 
-```bash
-ros2 topic echo /robofox/joint_states
-ros2 topic echo /robofox/logic_state
+  Action Servers:
+    /robofox/move_arm: ibt_ros2_interfaces/action/MoveArm
+  Action Clients:
+
 ```
----
 
 ## Moving the Arm
 
@@ -314,21 +211,6 @@ if __name__ == '__main__':
     main()
 ```
 
----
-
-**Explanation:**
-The action server expects a message of type MoveArm.Goal, which contains a list of instructions of type MoveReq.
-Each MoveReq defines:
-
- - the type of movement (JOINT, LIN, PTP, CIRC);
-
- - the targets (joint positions or Cartesian poses PoseRPY);
-
- - velocity and acceleration scaling factors (and the angle for circular motion).
-
-**More details:**
-
-The function `create_pose_msg()` is a utility to convert a list of 6 values into a properly structured `PoseRPY` message.
 
 
 ## Cancelling a Request: 
