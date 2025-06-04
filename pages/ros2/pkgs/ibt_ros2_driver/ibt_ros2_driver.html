@@ -20,7 +20,7 @@
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="prev" title="ROS2 Packages" href="../../ros2_pkgs.html" /> 
+    <link rel="prev" title="ibt_ros2_interfaces" href="../ibt_ros2_interfaces/interface_definitions.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,15 +47,13 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../ros2.html">ROS2</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../../ros2_interfaces.html">ROS2 Interfaces</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ros2_nav2.html">Nav2</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../ros2_pkgs.html">ROS2 Packages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../ibt_ros2_interfaces/interface_definitions.html">ibt_ros2_interfaces</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">ibt_ros2_driver</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#general-objectives-of-the-project">General Objectives of the Project</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#configurable-variables-at-node-startup">Configurable Variables at Node Startup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#ibt-ros2-interfaces">ibt_ros2_interfaces</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#how-to-use-the-package">How to Use the Package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#visualizing-topics">Visualizing Topics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#moving-the-arm">Moving the Arm</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cancelling-a-request">Cancelling a Request:</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sending-service-requests">Sending Service Requests:</a></li>
@@ -160,134 +158,40 @@ The variables are defined in the launch file <code class="docutils literal notra
 </tbody>
 </table>
 <p>These variables can be passed as arguments when launching the node using the <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">launch</span></code> command, for example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>ibt_ros2_driver<span class="w"> </span>ibt_ros2_driver.launch.py<span class="w"> </span>url:<span class="o">=</span>ws://localhost:8080<span class="w"> </span>login:<span class="o">=</span>user<span class="w"> </span>password:<span class="o">=</span>pass
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>ibt_ros2_driver<span class="w"> </span>ibt_ros2_driver.launch.py<span class="w"> </span>url:<span class="o">=</span>ws://localhost:8080
 </pre></div>
 </div>
-</section>
-<hr class="docutils" />
-<section id="ibt-ros2-interfaces">
-<h2>ibt_ros2_interfaces<a class="headerlink" href="#ibt-ros2-interfaces" title="Permalink to this heading"></a></h2>
-<p>The necessary actions, messages, and services for the driver’s operation are defined here.</p>
-<section id="messages">
-<h3>Messages<a class="headerlink" href="#messages" title="Permalink to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>MoveReq.msg</strong>: This message is used to construct the type of instruction to send to the server.</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">int32</span> <span class="n">move_type</span>  <span class="c1"># possible move to be executed</span>
-<span class="c1"># enums </span>
-<span class="n">int32</span> <span class="n">PTP</span><span class="o">=</span><span class="mi">0</span>     
-<span class="n">int32</span> <span class="n">LIN</span><span class="o">=</span><span class="mi">1</span>
-<span class="n">int32</span> <span class="n">JOINT</span><span class="o">=</span><span class="mi">2</span>
-<span class="n">int32</span> <span class="n">CIRC</span><span class="o">=</span><span class="mi">3</span>
-<span class="n">builtin_interfaces</span><span class="o">/</span><span class="n">Duration</span> <span class="n">duration</span>
-
-<span class="n">PoseRPY</span><span class="p">[]</span> <span class="n">pose</span>         <span class="c1"># list of Eulerian poses</span>
-<span class="n">float64</span><span class="p">[]</span> <span class="n">positions</span>    <span class="c1"># list of joint positions</span>
-
-<span class="n">float64</span> <span class="n">scale_vel_factor</span>
-<span class="n">float64</span> <span class="n">scale_acc_factor</span>
-<span class="n">float64</span> <span class="n">angle_radius</span> 
-</pre></div>
-</div>
-<p>When constructing the message, the fields <code class="docutils literal notranslate"><span class="pre">pose</span></code> and <code class="docutils literal notranslate"><span class="pre">positions</span></code> must not be populated simultaneously, but only based on the selected move type.</p>
-<p><strong>Pose</strong> is used for the following movement types:</p>
-<ul class="simple">
-<li><p>LIN</p></li>
-<li><p>PTP</p></li>
-<li><p>CIRC: When this movement is selected, Motorcortex requires at least 3 non-aligned points to execute the correct circular motion of the arm. In this case, the field <strong>angle_radius</strong> is also filled with the angle (in radians) that the arm should travel.</p></li>
-</ul>
-<p><strong>Positions</strong> is used for JOINT</p>
-<p><strong>PoseRPY.msg</strong>: This message is used to define the Eulerian pose to be included in the <code class="docutils literal notranslate"><span class="pre">MoveReq</span></code> message.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Eulerian pose</span>
-<span class="n">float64</span> <span class="n">x</span> 
-<span class="n">float64</span> <span class="n">y</span>
-<span class="n">float64</span> <span class="n">z</span> 
-
-<span class="n">float64</span> <span class="n">roll</span>
-<span class="n">float64</span> <span class="n">pitch</span>
-<span class="n">float64</span> <span class="n">yaw</span>
-</pre></div>
-</div>
-</section>
-<section id="actions">
-<h3>Actions<a class="headerlink" href="#actions" title="Permalink to this heading"></a></h3>
-<p>The action is defined as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Request</span>
-<span class="n">std_msgs</span><span class="o">/</span><span class="n">Header</span> <span class="n">header</span>  
-<span class="n">MoveReq</span><span class="p">[]</span> <span class="n">instructions</span>  <span class="c1"># list of instructions</span>
-<span class="o">---</span>
-<span class="c1"># Result</span>
-<span class="n">int32</span> <span class="n">error_code</span>        <span class="c1"># error code</span>
-<span class="n">int32</span> <span class="n">SUCCESSFUL</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">int32</span> <span class="n">INVALID_GOAL</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-
-<span class="n">string</span> <span class="n">error_str</span>        <span class="c1"># error message</span>
-<span class="o">---</span>
-<span class="c1"># Feedback</span>
-<span class="n">string</span> <span class="n">status</span>           <span class="c1"># status of the move</span>
-</pre></div>
-</div>
-<p>With this action, the user can send a request to execute a list of sequential movements by building a list of <code class="docutils literal notranslate"><span class="pre">MoveReq</span></code>, essentially creating a program for the robot to follow.</p>
-<p>During motion execution, the client receives feedback corresponding to the status of the program’s execution.</p>
-<p>When the server completes the operation, the client receives a result code indicating the overall outcome of the request.</p>
-</section>
-<section id="services">
-<h3>Services<a class="headerlink" href="#services" title="Permalink to this heading"></a></h3>
-<p>The services used are:</p>
-<ul class="simple">
-<li><p><strong>rearm</strong>:<br />
-The rearm service is used to bring the robot out of various possible error states and re-enable the joints.<br />
-The required service type is already defined in the ROS ecosystem and is called <a class="reference external" href="https://docs.ros2.org/foxy/api/std_srvs/srv/Trigger.html">TRIGGER</a>.<br />
-This type of interface is used exclusively for activating the rearm functionality.</p></li>
-<li><p><strong>set_output</strong>:</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uint8</span> <span class="n">value</span>
-<span class="o">---</span>
-<span class="nb">bool</span> <span class="n">success</span>
-<span class="n">string</span> <span class="n">message</span>
-</pre></div>
-</div>
-<p>This service allows control over the dout state states, and the enum defines the possible states to assign to the <code class="docutils literal notranslate"><span class="pre">value</span></code> field.</p>
-<p>At the end of the operation, the server sends back to the client a result consisting of a boolean indicating the success of the request and a string message with a detailed error, if any occurred.</p>
-</section>
 </section>
 <section id="how-to-use-the-package">
 <h2>How to Use the Package<a class="headerlink" href="#how-to-use-the-package" title="Permalink to this heading"></a></h2>
 <p>This package provides interfaces to control a robotic arm. The main functionalities include:</p>
-<ul class="simple">
-<li><p><strong>Action Server</strong>:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">move_arm</span></code>: sends motion commands to the robotic arm and cancels them.</p></li>
-</ul>
-</li>
-<li><p><strong>Services</strong>:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">rearm</span></code>: corrects the internal state of the arm.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">set_output</span></code>: manages the dout state.</p></li>
-</ul>
-</li>
-<li><p><strong>Publishers</strong>:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">joint_states</span></code>: publishes the position, velocity, and acceleration of the joints.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">logic_state</span></code>: publishes the internal logical state of the arm based on the state machine provided by Motorcortex.</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<hr class="docutils" />
-<section id="visualizing-topics">
-<h2>Visualizing Topics<a class="headerlink" href="#visualizing-topics" title="Permalink to this heading"></a></h2>
-<p>Once the node is running, you can view the data published on <code class="docutils literal notranslate"><span class="pre">joint_states</span></code> and <code class="docutils literal notranslate"><span class="pre">logic_state</span></code> using standard ROS 2 commands:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>&lt;topic_name&gt;
-</pre></div>
-</div>
-<p>Esempi:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/robofox/joint_states
-ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/robofox/logic_state
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/robofox/ibt_ros2_driver
+<span class="w">  </span>Subscribers:
+
+<span class="w">  </span>Publishers:
+<span class="w">    </span>/parameter_events:<span class="w"> </span>rcl_interfaces/msg/ParameterEvent
+<span class="w">    </span>/robofox/eef_pose:<span class="w"> </span>ibt_ros2_interfaces/msg/PoseRPY
+<span class="w">    </span>/robofox/joint_states:<span class="w"> </span>sensor_msgs/msg/JointState
+<span class="w">    </span>/robofox/logic_state:<span class="w"> </span>std_msgs/msg/String
+<span class="w">    </span>/rosout:<span class="w"> </span>rcl_interfaces/msg/Log
+<span class="w">  </span>Service<span class="w"> </span>Servers:
+<span class="w">    </span>/robofox/disarm:<span class="w"> </span>std_srvs/srv/Trigger
+<span class="w">    </span>/robofox/ibt_ros2_driver/describe_parameters:<span class="w"> </span>rcl_interfaces/srv/DescribeParameters
+<span class="w">    </span>/robofox/ibt_ros2_driver/get_parameter_types:<span class="w"> </span>rcl_interfaces/srv/GetParameterTypes
+<span class="w">    </span>/robofox/ibt_ros2_driver/get_parameters:<span class="w"> </span>rcl_interfaces/srv/GetParameters
+<span class="w">    </span>/robofox/ibt_ros2_driver/list_parameters:<span class="w"> </span>rcl_interfaces/srv/ListParameters
+<span class="w">    </span>/robofox/ibt_ros2_driver/set_parameters:<span class="w"> </span>rcl_interfaces/srv/SetParameters
+<span class="w">    </span>/robofox/ibt_ros2_driver/set_parameters_atomically:<span class="w"> </span>rcl_interfaces/srv/SetParametersAtomically
+<span class="w">    </span>/robofox/rearm:<span class="w"> </span>std_srvs/srv/Trigger
+<span class="w">    </span>/robofox/set_output:<span class="w"> </span>ibt_ros2_interfaces/srv/SetOutput
+<span class="w">  </span>Service<span class="w"> </span>Clients:
+
+<span class="w">  </span>Action<span class="w"> </span>Servers:
+<span class="w">    </span>/robofox/move_arm:<span class="w"> </span>ibt_ros2_interfaces/action/MoveArm
+<span class="w">  </span>Action<span class="w"> </span>Clients:
 </pre></div>
 </div>
 </section>
-<hr class="docutils" />
 <section id="moving-the-arm">
 <h2>Moving the Arm<a class="headerlink" href="#moving-the-arm" title="Permalink to this heading"></a></h2>
 <p>To send commands to the move_arm action server, it is recommended to write a ROS 2 client. Below is a practical example.</p>
@@ -415,17 +319,6 @@ ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<hr class="docutils" />
-<p><strong>Explanation:</strong>
-The action server expects a message of type MoveArm.Goal, which contains a list of instructions of type MoveReq.
-Each MoveReq defines:</p>
-<ul class="simple">
-<li><p>the type of movement (JOINT, LIN, PTP, CIRC);</p></li>
-<li><p>the targets (joint positions or Cartesian poses PoseRPY);</p></li>
-<li><p>velocity and acceleration scaling factors (and the angle for circular motion).</p></li>
-</ul>
-<p><strong>More details:</strong></p>
-<p>The function <code class="docutils literal notranslate"><span class="pre">create_pose_msg()</span></code> is a utility to convert a list of 6 values into a properly structured <code class="docutils literal notranslate"><span class="pre">PoseRPY</span></code> message.</p>
 </section>
 </section>
 <section id="cancelling-a-request">
@@ -488,7 +381,7 @@ Each MoveReq defines:</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../../ros2_pkgs.html" class="btn btn-neutral float-left" title="ROS2 Packages" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../ibt_ros2_interfaces/interface_definitions.html" class="btn btn-neutral float-left" title="ibt_ros2_interfaces" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
