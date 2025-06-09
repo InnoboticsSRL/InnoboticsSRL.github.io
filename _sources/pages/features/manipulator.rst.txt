@@ -9,6 +9,7 @@ Arm
 Topics
     - /robofox/joint_states: sensor_msgs/msg/JointState
     - /robofox/logic_state: std_msgs/msg/String
+    - /robofox/eef_pose: ibt_ros2_interfaces/msg/PoseRPY
 Services
     - /robofox/disarm: std_srvs/srv/Trigger
     - /robofox/rearm: std_srvs/srv/Trigger
