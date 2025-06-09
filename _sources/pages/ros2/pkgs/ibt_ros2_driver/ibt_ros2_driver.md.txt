@@ -22,7 +22,6 @@ The system provides in real time:
 The controller supports various types of movement:  
 - **Joint Movement**: Movement is executed by specifying a list of coordinates in joint space.  
 - **Point-To-Point (P2P) Movement**: The tool at the end of the arm reaches a specific position in Cartesian space.  
-- **Circular Movement**: The arm’s tool executes a circular movement in space.  
 - **Linear Movement**: The tool moves along a linear trajectory between two points in space.  
 
 5) **Changing the dout state state**
