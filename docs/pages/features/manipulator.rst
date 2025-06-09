@@ -5,7 +5,24 @@ Manipulator
 
 Arm
 -------
+
+Topics
+    - /robofox/joint_states: sensor_msgs/msg/JointState
+    - /robofox/logic_state: std_msgs/msg/String
+Services
+    - /robofox/disarm: std_srvs/srv/Trigger
+    - /robofox/rearm: std_srvs/srv/Trigger
+    - /robofox/set_output: ibt_ros2_interfaces/srv/SetOutput
+    - /robofox/get_input: ibt_ros2_interfaces/srv/GetInput
+Actions
+    - /robofox/move_arm: ibt_ros2_interfaces/action/MoveArm
+
 The arm is the main component of the manipulator, consisting of multiple links and joints that allow it to move in various directions.
+The controller supports various types of movement:  
+    - **Joint Movement**: Movement is executed by specifying a list of coordinates in joint space.  
+    - **Point-To-Point (P2P) Movement**: The tool at the end of the arm reaches a specific position in Cartesian space.  
+    - **Linear Movement**: The tool moves along a linear trajectory between two points in space.  
+
 Example:
 
 .. code-block:: python
