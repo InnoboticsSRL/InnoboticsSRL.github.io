@@ -48,6 +48,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Mobile Robot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#navigation">Navigation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#mapping">Mapping</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#creating-map">Creating map</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#saving-map">Saving map</a></li>
@@ -88,6 +89,18 @@
              
   <section id="mobile-robot">
 <span id="mobile-base"></span><h1>Mobile Robot<a class="headerlink" href="#mobile-robot" title="Permalink to this heading"></a></h1>
+<section id="navigation">
+<h2>Navigation<a class="headerlink" href="#navigation" title="Permalink to this heading"></a></h2>
+<p>The mobile base is equipped with the navigation stack, which allows the robot to navigate autonomously in the environment.
+The navigation stack is based on ROS 2 and uses the <a class="reference external" href="https://docs.nav2.org/">nav2</a> framework.</p>
+<p>You can control the robot’s navigation using the following actions:</p>
+<dl class="simple">
+<dt>Actions:</dt><dd><ul class="simple">
+<li><p>/navigate_to_pose: <a class="reference external" href="https://github.com/ros-navigation/navigation2/blob/humble/nav2_msgs/action/NavigateToPose.action">nav2_msgs/action/NavigateToPose</a></p></li>
+</ul>
+</dd>
+</dl>
+</section>
 <section id="mapping">
 <h2>Mapping<a class="headerlink" href="#mapping" title="Permalink to this heading"></a></h2>
 <p>For creating a map, we use the <a class="reference external" href="https://github.com/SteveMacenski/slam_toolbox">slam_toolbox</a>.</p>
@@ -127,6 +140,10 @@
 </ol>
 </dd>
 </dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The default name of the map is <em>ibt</em>. If you want to save the map with a different name, change the <cite>name</cite> field in the launch file <cite>ibt_ros2_bringup/launch/neo.launch.py</cite> or simply do a replacement with the command above.</p>
+</div>
 </section>
 <section id="restarting-the-navigation">
 <h3>Restarting the navigation<a class="headerlink" href="#restarting-the-navigation" title="Permalink to this heading"></a></h3>
@@ -148,65 +165,13 @@
 </section>
 <section id="battery-state">
 <h2>Battery state<a class="headerlink" href="#battery-state" title="Permalink to this heading"></a></h2>
-<p>The information about the battery state can be obtained from the topic <cite>/battery_state</cite> of type <cite>sensor_msgs/msg/BatteryState</cite>.
-Data are represented in the following format:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Constants are chosen to match the enums in the linux kernel</span>
-<span class="c1"># defined in include/linux/power_supply.h as of version 3.7</span>
-<span class="c1"># The one difference is for style reasons the constants are</span>
-<span class="c1"># all uppercase not mixed case.</span>
-
-<span class="c1"># Power supply status constants</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_STATUS_UNKNOWN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_STATUS_CHARGING</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_STATUS_DISCHARGING</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_STATUS_NOT_CHARGING</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_STATUS_FULL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span>
-
-<span class="c1"># Power supply health constants</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_HEALTH_UNKNOWN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_HEALTH_GOOD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_HEALTH_OVERHEAT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_HEALTH_DEAD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_HEALTH_OVERVOLTAGE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_HEALTH_UNSPEC_FAILURE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_HEALTH_COLD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_HEALTH_WATCHDOG_TIMER_EXPIRE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">7</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_HEALTH_SAFETY_TIMER_EXPIRE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">8</span>
-
-<span class="c1"># Power supply technology (chemistry) constants</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_TECHNOLOGY_UNKNOWN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_TECHNOLOGY_NIMH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_TECHNOLOGY_LION</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_TECHNOLOGY_LIPO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_TECHNOLOGY_LIFE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_TECHNOLOGY_NICD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span>
-uint8<span class="w"> </span><span class="nv">POWER_SUPPLY_TECHNOLOGY_LIMN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span>
-
-std_msgs/Header<span class="w">  </span>header
-<span class="w">                </span>builtin_interfaces/Time<span class="w"> </span>stamp
-<span class="w">                                </span>int32<span class="w"> </span>sec
-<span class="w">                                </span>uint32<span class="w"> </span>nanosec
-<span class="w">                </span>string<span class="w"> </span>frame_id
-float32<span class="w"> </span>voltage<span class="w">          </span><span class="c1"># Voltage in Volts (Mandatory)</span>
-float32<span class="w"> </span>temperature<span class="w">      </span><span class="c1"># Temperature in Degrees Celsius (If unmeasured NaN)</span>
-float32<span class="w"> </span>current<span class="w">          </span><span class="c1"># Negative when discharging (A)  (If unmeasured NaN)</span>
-float32<span class="w"> </span>charge<span class="w">           </span><span class="c1"># Current charge in Ah  (If unmeasured NaN)</span>
-float32<span class="w"> </span>capacity<span class="w">         </span><span class="c1"># Capacity in Ah (last full capacity)  (If unmeasured NaN)</span>
-float32<span class="w"> </span>design_capacity<span class="w">  </span><span class="c1"># Capacity in Ah (design capacity)  (If unmeasured NaN)</span>
-float32<span class="w"> </span>percentage<span class="w">       </span><span class="c1"># Charge percentage on 0 to 1 range  (If unmeasured NaN)</span>
-uint8<span class="w">   </span>power_supply_status<span class="w">     </span><span class="c1"># The charging status as reported. Values defined above</span>
-uint8<span class="w">   </span>power_supply_health<span class="w">     </span><span class="c1"># The battery health metric. Values defined above</span>
-uint8<span class="w">   </span>power_supply_technology<span class="w"> </span><span class="c1"># The battery chemistry. Values defined above</span>
-bool<span class="w">    </span>present<span class="w">          </span><span class="c1"># True if the battery is present</span>
-
-float32<span class="o">[]</span><span class="w"> </span>cell_voltage<span class="w">   </span><span class="c1"># An array of individual cell voltages for each cell in the pack</span>
-<span class="w">                                                </span><span class="c1"># If individual voltages unknown but number of cells known set each to NaN</span>
-float32<span class="o">[]</span><span class="w"> </span>cell_temperature<span class="w"> </span><span class="c1"># An array of individual cell temperatures for each cell in the pack</span>
-<span class="w">                                                </span><span class="c1"># If individual temperatures unknown but number of cells known set each to NaN</span>
-string<span class="w"> </span>location<span class="w">          </span><span class="c1"># The location into which the battery is inserted. (slot number or plug)</span>
-string<span class="w"> </span>serial_number<span class="w">     </span><span class="c1"># The best approximation of the battery serial number</span>
-</pre></div>
-</div>
+<p>The information about the battery state can be obtained from</p>
+<dl class="simple">
+<dt>Publisher</dt><dd><ul class="simple">
+<li><p>/battery_state: <a class="reference external" href="https://github.com/ros2/common_interfaces/blob/humble/sensor_msgs/msg/BatteryState.msg">sensor_msgs/msg/BatteryState</a></p></li>
+</ul>
+</dd>
+</dl>
 </section>
 <section id="docking">
 <h2>Docking<a class="headerlink" href="#docking" title="Permalink to this heading"></a></h2>
@@ -214,23 +179,13 @@ string<span class="w"> </span>serial_number<span class="w">     </span><span cla
 </section>
 <section id="safety-areas">
 <h2>Safety areas<a class="headerlink" href="#safety-areas" title="Permalink to this heading"></a></h2>
-<p>You can select the safety areas in accordance with the environment, where the robot will be allowed to move.
-To do this a proper interface is provided</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/sick/setOutput<span class="w"> </span>ibt_ros2_interfaces/srv/SetAttrAll<span class="w"> </span><span class="s2">&quot;clas: 0x72</span>
-<span class="s2">instance: 1</span>
-<span class="s2">data:</span>
-<span class="s2">- 255</span>
-<span class="s2">- 0</span>
-<span class="s2">- 0</span>
-<span class="s2">- 0</span>
-<span class="s2">- 0</span>
-<span class="s2">- 0</span>
-<span class="s2">- 0</span>
-<span class="s2">- 0</span>
-<span class="s2">- 0</span>
-<span class="s2">- 0&quot;</span>
-</pre></div>
-</div>
+<p>You can select the safety areas in accordance with the environment, where the robot will be allowed to move.</p>
+<dl class="simple">
+<dt>Services server</dt><dd><ul class="simple">
+<li><p>/sick/setOutput: <a class="reference external" href="https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/srv/SetAttrAll.srv">ibt_ros2_interfaces/srv/SetAttrAll</a></p></li>
+</ul>
+</dd>
+</dl>
 </section>
 </section>
 

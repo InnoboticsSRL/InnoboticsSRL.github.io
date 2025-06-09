@@ -83,21 +83,21 @@
 <section id="arm">
 <h2>Arm<a class="headerlink" href="#arm" title="Permalink to this heading"></a></h2>
 <dl class="simple">
-<dt>Topics</dt><dd><ul class="simple">
-<li><p>/robofox/joint_states: sensor_msgs/msg/JointState</p></li>
-<li><p>/robofox/logic_state: std_msgs/msg/String</p></li>
-<li><p>/robofox/eef_pose: ibt_ros2_interfaces/msg/PoseRPY</p></li>
+<dt>Publishers</dt><dd><ul class="simple">
+<li><p>/robofox/joint_states: <a class="reference external" href="https://github.com/ros2/common_interfaces/blob/humble/sensor_msgs/msg/JointState.msg">sensor_msgs/msg/JointState</a></p></li>
+<li><p>/robofox/logic_state: <a class="reference external" href="https://github.com/ros2/common_interfaces/blob/humble/std_msgs/msg/String.msg">std_msgs/msg/String</a></p></li>
+<li><p>/robofox/eef_pose: <cite>ibt_ros2_interfaces/msg/PoseRPY`</cite></p></li>
 </ul>
 </dd>
-<dt>Services</dt><dd><ul class="simple">
-<li><p>/robofox/disarm: std_srvs/srv/Trigger</p></li>
-<li><p>/robofox/rearm: std_srvs/srv/Trigger</p></li>
-<li><p>/robofox/set_output: ibt_ros2_interfaces/srv/SetOutput</p></li>
-<li><p>/robofox/get_input: ibt_ros2_interfaces/srv/GetInput</p></li>
+<dt>Services server</dt><dd><ul class="simple">
+<li><p>/robofox/disarm: <a class="reference external" href="https://github.com/ros2/common_interfaces/blob/humble/std_srvs/srv/Trigger.srv">std_srvs/srv/Trigger</a></p></li>
+<li><p>/robofox/rearm: <a class="reference external" href="https://github.com/ros2/common_interfaces/blob/humble/std_srvs/srv/Trigger.srv">std_srvs/srv/Trigger</a></p></li>
+<li><p>/robofox/set_output: <a class="reference external" href="https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/srv/SetOutput.srv">ibt_ros2_interfaces/srv/SetOutput</a></p></li>
+<li><p>/robofox/get_input: <a class="reference external" href="https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/srv/GetInput.srv">ibt_ros2_interfaces/srv/GetInput</a></p></li>
 </ul>
 </dd>
-<dt>Actions</dt><dd><ul class="simple">
-<li><p>/robofox/move_arm: ibt_ros2_interfaces/action/MoveArm</p></li>
+<dt>Actions server</dt><dd><ul class="simple">
+<li><p>/robofox/move_arm: <a class="reference external" href="https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/action/MoveArm.action">ibt_ros2_interfaces/action/MoveArm</a></p></li>
 </ul>
 </dd>
 </dl>
@@ -110,7 +110,7 @@ The controller supports various types of movement:</p>
 <li><p><strong>Linear Movement</strong>: The tool moves along a linear trajectory between two points in space.</p></li>
 </ul>
 </div></blockquote>
-<p>Example:</p>
+<p>Move Example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.action</span><span class="w"> </span><span class="kn">import</span> <span class="n">ActionClient</span>
@@ -121,16 +121,9 @@ The controller supports various types of movement:</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ibt_ros2_interfaces.action</span><span class="w"> </span><span class="kn">import</span> <span class="n">MoveArm</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ibt_ros2_interfaces.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">MoveReq</span><span class="p">,</span> <span class="n">PoseRPY</span><span class="p">,</span> <span class="n">Waypoint</span>
 
-<span class="n">RED</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[91m&#39;</span>
-<span class="n">GREEN</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[92m&#39;</span>
-<span class="n">BLUE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[94m&#39;</span>
-<span class="n">YELLOW</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[93m&#39;</span>
-<span class="n">RESET</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0m&#39;</span>
-
 <span class="k">class</span><span class="w"> </span><span class="nc">TESTMove</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;test_move_arm&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">YELLOW</span><span class="si">}</span><span class="s1">Starting TESTMove...</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">rearm_client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span><span class="n">Trigger</span><span class="p">,</span> <span class="s1">&#39;/robofox/rearm&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">disarm_client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span><span class="n">Trigger</span><span class="p">,</span> <span class="s1">&#39;/robofox/disarm&#39;</span><span class="p">)</span>
@@ -169,7 +162,6 @@ The controller supports various types of movement:</p>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">call_rearm_service</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">rearm_client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="mf">2.0</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">RED</span><span class="si">}</span><span class="s1">Rearm service not available.</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
 
         <span class="n">request</span> <span class="o">=</span> <span class="n">Trigger</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
@@ -178,17 +170,14 @@ The controller supports various types of movement:</p>
         <span class="n">res</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">res</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">GREEN</span><span class="si">}</span><span class="s1">Rearm service called successfully.</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="c1"># Timeout of 5 seconds after rearm to ensure the arm is ready</span>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">5.0</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">RED</span><span class="si">}</span><span class="s1">Failed to call rearm service.</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">call_disarm_service</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">disarm_client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="mf">2.0</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">RED</span><span class="si">}</span><span class="s1">Disarm service not available.</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
 
         <span class="n">request</span> <span class="o">=</span> <span class="n">Trigger</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
@@ -197,12 +186,10 @@ The controller supports various types of movement:</p>
         <span class="n">res</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">res</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">GREEN</span><span class="si">}</span><span class="s1">Disarm service called successfully.</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="c1"># Timeout of 1 second after disarm to ensure the arm is not engaged</span>
             <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">RED</span><span class="si">}</span><span class="s1">Failed to call disarm service.</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">create_pose_msg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pose_vector</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PoseRPY</span><span class="p">:</span>
@@ -211,29 +198,23 @@ The controller supports various types of movement:</p>
         <span class="k">return</span> <span class="n">pose</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">feedback_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feedback_msg</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">YELLOW</span><span class="si">}</span><span class="s1"> Feedback: </span><span class="si">{</span><span class="n">feedback_msg</span><span class="o">.</span><span class="n">feedback</span><span class="o">.</span><span class="n">status</span><span class="si">}{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">pass</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">move_to_req_pose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">:</span> <span class="n">MoveReq</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">BLUE</span><span class="si">}</span><span class="s1"> [Trying to move to home pose...</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">goal_msg</span> <span class="o">=</span> <span class="n">MoveArm</span><span class="o">.</span><span class="n">Goal</span><span class="p">()</span>
         <span class="n">goal_msg</span><span class="o">.</span><span class="n">requests</span> <span class="o">=</span> <span class="p">[</span><span class="n">req</span><span class="p">]</span>
 
-        <span class="c1"># First way to send MoveArm goal</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">BLUE</span><span class="si">}</span><span class="s1">Sending goal: </span><span class="si">{</span><span class="n">req</span><span class="o">.</span><span class="n">move_type</span><span class="si">}{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">move_client</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal_msg</span><span class="p">,</span> <span class="n">feedback_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">feedback_callback</span><span class="p">)</span>
         <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout_sec</span><span class="p">)</span>
         <span class="n">goal_handle</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">goal_handle</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">accepted</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">RED</span><span class="si">}</span><span class="s1">Goal was rejected or failed to send.</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">BLUE</span><span class="si">}</span><span class="s1">Goal accepted, waiting for result...</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">result_future</span> <span class="o">=</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">get_result_async</span><span class="p">()</span>
         <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_future</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout_sec</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">result_future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">result</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">YELLOW</span><span class="si">}</span><span class="s1">Move result: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error_str</span><span class="si">}</span><span class="s1"> (Code: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error_code</span><span class="si">}</span><span class="s1">)</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">move_to_pose_rpy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rpy</span><span class="p">:</span> <span class="n">PoseRPY</span><span class="p">):</span>
@@ -253,85 +234,50 @@ The controller supports various types of movement:</p>
         <span class="n">req</span><span class="o">.</span><span class="n">waypoints</span> <span class="o">=</span> <span class="p">[</span><span class="n">wp</span><span class="p">]</span>
         <span class="n">goal</span><span class="o">.</span><span class="n">requests</span> <span class="o">=</span> <span class="p">[</span><span class="n">req</span><span class="p">]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">BLUE</span><span class="si">}</span><span class="s1">Sending goal: </span><span class="si">{</span><span class="n">req</span><span class="o">.</span><span class="n">move_type</span><span class="si">}{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">move_client</span><span class="o">.</span><span class="n">send_goal_async</span><span class="p">(</span><span class="n">goal</span><span class="p">,</span> <span class="n">feedback_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">feedback_callback</span><span class="p">)</span>
         <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout_sec</span><span class="p">)</span>
         <span class="n">goal_handle</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">goal_handle</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">accepted</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">RED</span><span class="si">}</span><span class="s1">Goal was rejected or failed to send.</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">BLUE</span><span class="si">}</span><span class="s1">Goal accepted, waiting for result...</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">result_future</span> <span class="o">=</span> <span class="n">goal_handle</span><span class="o">.</span><span class="n">get_result_async</span><span class="p">()</span>
         <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_future</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout_sec</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">result_future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">result</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">YELLOW</span><span class="si">}</span><span class="s1">Move result: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error_str</span><span class="si">}</span><span class="s1"> (Code: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error_code</span><span class="si">}</span><span class="s1">)</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">execute_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_rearm_service</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">RED</span><span class="si">}</span><span class="s1">Rearm service call failed. Exiting...</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="k">return</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">YELLOW</span><span class="si">}</span><span class="s1"> Waiting for action servers...</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">move_client</span><span class="o">.</span><span class="n">wait_for_server</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">GREEN</span><span class="si">}</span><span class="s1"> Move arm server active...</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">move_to_req_pose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">req_default</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">RED</span><span class="si">}</span><span class="s1">Pipeline aborted: failed to reach default pose.</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="k">return</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">move_to_req_pose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">req_home</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">RED</span><span class="si">}</span><span class="s1">Pipeline aborted: failed to reach home pose.</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="k">return</span>
 
-
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pose_vec</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">detection_poses</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">YELLOW</span><span class="si">}</span><span class="s1"> [Try </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">] Moving to detection pose...</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">move_to_pose_rpy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_pose_msg</span><span class="p">(</span><span class="n">pose_vec</span><span class="p">)):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">RED</span><span class="si">}</span><span class="s1">Failed to move to detection pose </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">. Exiting...</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="k">return</span>
 
-
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_disarm_service</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">RED</span><span class="si">}</span><span class="s1">Disarm service call failed. Exiting...</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="k">return</span>
 </pre></div>
 </div>
 </section>
 <section id="end-effector">
 <h2>End effector<a class="headerlink" href="#end-effector" title="Permalink to this heading"></a></h2>
-<p>The end effector is the part of the manipulator that interacts with the environment. It can be a gripper, a tool, or any other device that performs a specific task.
-It can be controlled using the services <cite>/robofox/set_output</cite> and <cite>/robofox/get_input</cite> provided by the <cite>ibt_ros2_interfaces</cite> package.</p>
-<p>Minimal example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_set_output_service</span><span class="p">(</span><span class="n">rclpy_init_shutdown</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">set_output_client</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">set_output_client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
-
-    <span class="n">request</span> <span class="o">=</span> <span class="n">SetOutput</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
-    <span class="n">request</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span>
-    <span class="n">future</span> <span class="o">=</span> <span class="n">set_output_client</span><span class="o">.</span><span class="n">call_async</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-
-    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">future</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
-
-    <span class="k">assert</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="k">assert</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">success</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">test_get_input_service</span><span class="p">(</span><span class="n">rclpy_init_shutdown</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">get_input_client</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">get_input_client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
-
-    <span class="n">request</span> <span class="o">=</span> <span class="n">GetInput</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
-    <span class="n">future</span> <span class="o">=</span> <span class="n">get_input_client</span><span class="o">.</span><span class="n">call_async</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-
-    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">future</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
-
-    <span class="k">assert</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="k">assert</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">success</span>
-    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
-</pre></div>
-</div>
+<p>The end effector is the part of the manipulator that interacts with the environment. It can be a gripper, a tool, or any other device that performs a specific task.</p>
+<dl class="simple">
+<dt>Services server</dt><dd><ul class="simple">
+<li><p>/robofox/set_output: <a class="reference external" href="https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/srv/SetOutput.srv">ibt_ros2_interfaces/srv/SetOutput</a></p></li>
+<li><p>/robofox/get_input: <a class="reference external" href="https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/srv/GetInput.srv">ibt_ros2_interfaces/srv/GetInput</a></p></li>
+</ul>
+</dd>
+</dl>
 </section>
 </section>
 
