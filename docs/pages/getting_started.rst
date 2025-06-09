@@ -8,7 +8,7 @@ This chapter provides the basic information to get started with ROS2 on your Com
 Network Connection
 -------------------
 
-By default your ComboFox platform will try to connect to the wireless network with SSID **awcombo**.
+By default your ComboFox platform will try to connect to the wireless network *combofox*.
 
 First power up the WiFi access point included and wait until the network ComboFox is available. 
 Optionally connect the access point to your company/home network via ethernet to enable internet access on the platform when needed.
