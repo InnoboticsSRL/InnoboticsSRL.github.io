@@ -6,21 +6,21 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ibt_ros2_driver &mdash; ComboFox 2.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=ec3804ef" />
+  <title>Manipulator &mdash; ComboFox 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=ec3804ef" />
 
   
-      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=73cda6fb"></script>
-      <script src="../../../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../../../_static/sphinx_highlight.js?v=4825356b"></script>
-    <script src="../../../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="prev" title="ibt_ros2_interfaces" href="../ibt_ros2_interfaces/interface_definitions.html" /> 
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=73cda6fb"></script>
+      <script src="../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Mobile Robot" href="mobile_base.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -31,12 +31,12 @@
 
           
           
-          <a href="../../../../index.html">
+          <a href="../../index.html">
             
-              <img src="../../../../_static/logo-IBT_positivo.png" class="logo" alt="Logo"/>
+              <img src="../../_static/logo-IBT_positivo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -45,20 +45,11 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../ros2.html">ROS2</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../../ros2_nav2.html">Nav2</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../../ros2_pkgs.html">ROS2 Packages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../ibt_ros2_interfaces/interface_definitions.html">ibt_ros2_interfaces</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">ibt_ros2_driver</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#general-objectives-of-the-project">General Objectives of the Project</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#configurable-variables-at-node-startup">Configurable Variables at Node Startup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#how-to-use-the-package">How to Use the Package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#moving-the-arm">Moving the Arm</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile_base.html">Mobile Robot</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Manipulator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#arm">Arm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#end-effector">End effector</a></li>
 </ul>
 </li>
 </ul>
@@ -69,19 +60,17 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">ComboFox</a>
+          <a href="../../index.html">ComboFox</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../ros2.html">ROS2</a></li>
-          <li class="breadcrumb-item"><a href="../../ros2_pkgs.html">ROS2 Packages</a></li>
-      <li class="breadcrumb-item active">ibt_ros2_driver</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Manipulator</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../../../_sources/pages/ros2/pkgs/ibt_ros2_driver/ibt_ros2_driver.md.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/pages/features/manipulator.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -89,109 +78,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="ibt-ros2-driver">
-<h1>ibt_ros2_driver<a class="headerlink" href="#ibt-ros2-driver" title="Permalink to this heading"></a></h1>
-<p>For controlling the movement of the robotic arm, a ROS2 package has been developed that interfaces with the Motorcortex web server. Within this package, an action server has been primarily implemented, whose task is to receive and manage movement requests from a user, executing them in a safe and reliable manner</p>
-<section id="general-objectives-of-the-project">
-<h2>General Objectives of the Project<a class="headerlink" href="#general-objectives-of-the-project" title="Permalink to this heading"></a></h2>
-<p>This section describes the main goals of the project at a conceptual level, without going into specific software implementation details.</p>
-<p>The objective of the project is to develop a controller capable of receiving commands from a user to move a robotic arm, while ensuring the internal consistency of the system’s states. The controller provides the following functionalities:</p>
-<ol class="arabic simple">
-<li><p><strong>Joint coupling and error recovery</strong><br />
-This functionality allows the user to couple the joints of the robot, an operation required to enable movement commands. It also makes it possible to bring the system back to an operational state in the event of execution errors.</p></li>
-<li><p><strong>Canceling an ongoing operation</strong><br />
-For safety or operational reasons, the user must be able to interrupt a movement currently in progress. The controller correctly handles the cancellation of the request.</p></li>
-<li><p><strong>Publishing the robot’s status</strong><br />
-The system provides in real time:</p></li>
-</ol>
-<ul class="simple">
-<li><p>The current positions of the robotic arm joints</p></li>
-<li><p>The current status of the robot, according to its internal state machine</p></li>
-</ul>
-<ol class="arabic simple" start="4">
-<li><p><strong>Movement execution</strong><br />
-The controller supports various types of movement:</p></li>
-</ol>
-<ul class="simple">
-<li><p><strong>Joint Movement</strong>: Movement is executed by specifying a list of coordinates in joint space.</p></li>
-<li><p><strong>Point-To-Point (P2P) Movement</strong>: The tool at the end of the arm reaches a specific position in Cartesian space.</p></li>
-<li><p><strong>Linear Movement</strong>: The tool moves along a linear trajectory between two points in space.</p></li>
-</ul>
-<ol class="arabic simple" start="5">
-<li><p><strong>Changing the dout state state</strong></p></li>
-<li><p><strong>Publishing joint space positions and internal state of the arm</strong></p></li>
-</ol>
-</section>
-<hr class="docutils" />
-<section id="configurable-variables-at-node-startup">
-<h2>Configurable Variables at Node Startup<a class="headerlink" href="#configurable-variables-at-node-startup" title="Permalink to this heading"></a></h2>
-<p>This section describes the variables that the user can modify before starting the node.<br />
-The variables are defined in the launch file <code class="docutils literal notranslate"><span class="pre">ibt_ros2_driver.launch.py</span></code>.</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Variable</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">namespace</span></code></p></td>
-<td><p>Namespace to assign to the node</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">url</span></code></p></td>
-<td><p>WebSocket URL for the connection</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">prefix</span></code></p></td>
-<td><p>Prefix to use for the node</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">timeout_ms</span></code></p></td>
-<td><p>Connection timeout (in milliseconds)</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">login</span></code></p></td>
-<td><p>Username for WebSocket authentication</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">password</span></code></p></td>
-<td><p>Password for WebSocket authentication</p></td>
-</tr>
-</tbody>
-</table>
-<p>These variables can be passed as arguments when launching the node using the <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">launch</span></code> command, for example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>ibt_ros2_driver<span class="w"> </span>ibt_ros2_driver.launch.py<span class="w"> </span>url:<span class="o">=</span>ws://localhost:8080
-</pre></div>
-</div>
-</section>
-<section id="how-to-use-the-package">
-<h2>How to Use the Package<a class="headerlink" href="#how-to-use-the-package" title="Permalink to this heading"></a></h2>
-<p>This package provides interfaces to control a robotic arm. The main functionalities include:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/robofox/ibt_ros2_driver
-<span class="w">  </span>Subscribers:
-
-<span class="w">  </span>Publishers:
-<span class="w">    </span>/parameter_events:<span class="w"> </span>rcl_interfaces/msg/ParameterEvent
-<span class="w">    </span>/robofox/eef_pose:<span class="w"> </span>ibt_ros2_interfaces/msg/PoseRPY
-<span class="w">    </span>/robofox/joint_states:<span class="w"> </span>sensor_msgs/msg/JointState
-<span class="w">    </span>/robofox/logic_state:<span class="w"> </span>std_msgs/msg/String
-<span class="w">    </span>/rosout:<span class="w"> </span>rcl_interfaces/msg/Log
-<span class="w">  </span>Service<span class="w"> </span>Servers:
-<span class="w">    </span>/robofox/disarm:<span class="w"> </span>std_srvs/srv/Trigger
-<span class="w">    </span>/robofox/ibt_ros2_driver/describe_parameters:<span class="w"> </span>rcl_interfaces/srv/DescribeParameters
-<span class="w">    </span>/robofox/ibt_ros2_driver/get_parameter_types:<span class="w"> </span>rcl_interfaces/srv/GetParameterTypes
-<span class="w">    </span>/robofox/ibt_ros2_driver/get_parameters:<span class="w"> </span>rcl_interfaces/srv/GetParameters
-<span class="w">    </span>/robofox/ibt_ros2_driver/list_parameters:<span class="w"> </span>rcl_interfaces/srv/ListParameters
-<span class="w">    </span>/robofox/ibt_ros2_driver/set_parameters:<span class="w"> </span>rcl_interfaces/srv/SetParameters
-<span class="w">    </span>/robofox/ibt_ros2_driver/set_parameters_atomically:<span class="w"> </span>rcl_interfaces/srv/SetParametersAtomically
-<span class="w">    </span>/robofox/rearm:<span class="w"> </span>std_srvs/srv/Trigger
-<span class="w">    </span>/robofox/set_output:<span class="w"> </span>ibt_ros2_interfaces/srv/SetOutput
-<span class="w">  </span>Service<span class="w"> </span>Clients:
-
-<span class="w">  </span>Action<span class="w"> </span>Servers:
-<span class="w">    </span>/robofox/move_arm:<span class="w"> </span>ibt_ros2_interfaces/action/MoveArm
-<span class="w">  </span>Action<span class="w"> </span>Clients:
-</pre></div>
-</div>
-</section>
-<section id="moving-the-arm">
-<h2>Moving the Arm<a class="headerlink" href="#moving-the-arm" title="Permalink to this heading"></a></h2>
-<p>To send commands to the move_arm action server, it is recommended to write a ROS 2 client. Below is a practical example.</p>
+  <section id="manipulator">
+<span id="id1"></span><h1>Manipulator<a class="headerlink" href="#manipulator" title="Permalink to this heading"></a></h1>
+<section id="arm">
+<h2>Arm<a class="headerlink" href="#arm" title="Permalink to this heading"></a></h2>
+<p>The arm is the main component of the manipulator, consisting of multiple links and joints that allow it to move in various directions.
+Example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.action</span><span class="w"> </span><span class="kn">import</span> <span class="n">ActionClient</span>
@@ -201,7 +93,6 @@ The variables are defined in the launch file <code class="docutils literal notra
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">ibt_ros2_interfaces.action</span><span class="w"> </span><span class="kn">import</span> <span class="n">MoveArm</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ibt_ros2_interfaces.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">MoveReq</span><span class="p">,</span> <span class="n">PoseRPY</span><span class="p">,</span> <span class="n">Waypoint</span>
-
 
 <span class="n">RED</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[91m&#39;</span>
 <span class="n">GREEN</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[92m&#39;</span>
@@ -247,9 +138,7 @@ The variables are defined in the launch file <code class="docutils literal notra
         <span class="bp">self</span><span class="o">.</span><span class="n">req_default</span><span class="o">.</span><span class="n">waypoints</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">wp_default</span><span class="p">]</span>
 
         <span class="c1"># Detection poses in xyzRPY format wrt base_link</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">detection_poses</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">[</span><span class="mf">0.60</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">180</span><span class="p">),</span><span class="mf">0.0</span><span class="p">,</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">180</span><span class="p">)]</span>
-        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detection_poses</span> <span class="o">=</span> <span class="p">[</span> <span class="p">[</span><span class="mf">0.60</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">180</span><span class="p">),</span><span class="mf">0.0</span><span class="p">,</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">180</span><span class="p">)]</span> <span class="p">]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">call_rearm_service</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">rearm_client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="mf">2.0</span><span class="p">):</span>
@@ -354,7 +243,6 @@ The variables are defined in the launch file <code class="docutils literal notra
         <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">YELLOW</span><span class="si">}</span><span class="s1">Move result: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error_str</span><span class="si">}</span><span class="s1"> (Code: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">error_code</span><span class="si">}</span><span class="s1">)</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span>
 
-    <span class="c1">### Pipeline simplified to just move the arm ###</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">execute_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_rearm_service</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">RED</span><span class="si">}</span><span class="s1">Rearm service call failed. Exiting...</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -372,34 +260,49 @@ The variables are defined in the launch file <code class="docutils literal notra
             <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">RED</span><span class="si">}</span><span class="s1">Pipeline aborted: failed to reach home pose.</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="k">return</span>
 
-            
+
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pose_vec</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">detection_poses</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">YELLOW</span><span class="si">}</span><span class="s1"> [Try </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">] Moving to detection pose...</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-            
+
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">move_to_pose_rpy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_pose_msg</span><span class="p">(</span><span class="n">pose_vec</span><span class="p">)):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">RED</span><span class="si">}</span><span class="s1">Failed to move to detection pose </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">. Exiting...</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="k">return</span>
 
 
-
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_disarm_service</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">RED</span><span class="si">}</span><span class="s1">Disarm service call failed. Exiting...</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="k">return</span>
+</pre></div>
+</div>
+</section>
+<section id="end-effector">
+<h2>End effector<a class="headerlink" href="#end-effector" title="Permalink to this heading"></a></h2>
+<p>The end effector is the part of the manipulator that interacts with the environment. It can be a gripper, a tool, or any other device that performs a specific task.
+It can be controlled using the services <cite>/robofox/set_output</cite> and <cite>/robofox/get_input</cite> provided by the <cite>ibt_ros2_interfaces</cite> package.</p>
+<p>Minimal example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_set_output_service</span><span class="p">(</span><span class="n">rclpy_init_shutdown</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">set_output_client</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">set_output_client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
 
+    <span class="n">request</span> <span class="o">=</span> <span class="n">SetOutput</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span>
+    <span class="n">future</span> <span class="o">=</span> <span class="n">set_output_client</span><span class="o">.</span><span class="n">call_async</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
-    <span class="n">node</span> <span class="o">=</span> <span class="n">TESTMove</span><span class="p">()</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">node</span><span class="o">.</span><span class="n">execute_pipeline</span><span class="p">()</span>
-    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
-        <span class="n">node</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">RED</span><span class="si">}</span><span class="s1">TESTMove interrupted by user.</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="k">finally</span><span class="p">:</span>
-        <span class="n">node</span><span class="o">.</span><span class="n">destroy_node</span><span class="p">()</span>
-        <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">future</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">assert</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">success</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_get_input_service</span><span class="p">(</span><span class="n">rclpy_init_shutdown</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">get_input_client</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">get_input_client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+
+    <span class="n">request</span> <span class="o">=</span> <span class="n">GetInput</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+    <span class="n">future</span> <span class="o">=</span> <span class="n">get_input_client</span><span class="o">.</span><span class="n">call_async</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">future</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">assert</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">success</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
 </pre></div>
 </div>
 </section>
@@ -409,7 +312,7 @@ The variables are defined in the launch file <code class="docutils literal notra
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../ibt_ros2_interfaces/interface_definitions.html" class="btn btn-neutral float-left" title="ibt_ros2_interfaces" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mobile_base.html" class="btn btn-neutral float-left" title="Mobile Robot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

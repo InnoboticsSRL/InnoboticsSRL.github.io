@@ -15,40 +15,19 @@ For safety or operational reasons, the user must be able to interrupt a movement
 
 3) **Publishing the robot’s status**  
 The system provides in real time:  
-- The current positions of the robotic arm joints  
-- The current status of the robot, according to its internal state machine  
+    - The current positions of the robotic arm joints  
+    - The current status of the robot, according to its internal state machine  
 
 4) **Movement execution**  
 The controller supports various types of movement:  
-- **Joint Movement**: Movement is executed by specifying a list of coordinates in joint space.  
-- **Point-To-Point (P2P) Movement**: The tool at the end of the arm reaches a specific position in Cartesian space.  
-- **Linear Movement**: The tool moves along a linear trajectory between two points in space.  
+    - **Joint Movement**: Movement is executed by specifying a list of coordinates in joint space.  
+    - **Point-To-Point (P2P) Movement**: The tool at the end of the arm reaches a specific position in Cartesian space.  
+    - **Linear Movement**: The tool moves along a linear trajectory between two points in space.  
 
 5) **Changing the dout state state**
 
 6) **Publishing joint space positions and internal state of the arm**
 
----
-
-## Configurable Variables at Node Startup
-
-This section describes the variables that the user can modify before starting the node.  
-The variables are defined in the launch file `ibt_ros2_driver.launch.py`.
-
-| Variable       | Description                                           |
-|----------------|-------------------------------------------------------|
-| `namespace`    | Namespace to assign to the node                      |
-| `url`          | WebSocket URL for the connection                     |
-| `prefix`       | Prefix to use for the node                           |
-| `timeout_ms`   | Connection timeout (in milliseconds)                 |
-| `login`        | Username for WebSocket authentication                |
-| `password`     | Password for WebSocket authentication                |
-
-These variables can be passed as arguments when launching the node using the `ros2 launch` command, for example:
-
-```bash
-ros2 launch ibt_ros2_driver ibt_ros2_driver.launch.py url:=ws://localhost:8080
-```
 
 ## How to Use the Package
 

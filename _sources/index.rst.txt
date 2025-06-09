@@ -11,7 +11,13 @@ Welcome to ComboFox's documentation!
    :caption: Contents:
 
    pages/getting_started.md
-   pages/ros2/ros2.rst
+   pages/features/mobile_base.rst
+   pages/features/manipulator.rst
+
+A portion of the source code can be found on GitHub 
+`https://github.com/InnoboticsSRL <https://github.com/InnoboticsSRL>`_
+
+For any questions, dubt or feature request, please contact us
 
 
 .. Indices and tables
