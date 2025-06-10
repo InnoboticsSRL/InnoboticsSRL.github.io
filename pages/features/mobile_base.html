@@ -49,6 +49,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Mobile Robot</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#navigation">Navigation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#localization">Localization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#mapping">Mapping</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#creating-map">Creating map</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#saving-map">Saving map</a></li>
@@ -100,6 +101,26 @@ The navigation stack is based on ROS 2 and uses the <a class="reference external
 </ul>
 </dd>
 </dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Remember to be sure that the robot is located in the environment before proceeding with new goals</p>
+</div>
+</section>
+<section id="localization">
+<h2>Localization<a class="headerlink" href="#localization" title="Permalink to this heading"></a></h2>
+<p>The first localization of robot in the map is required to use the naviation stack in proper way.
+It can be made by:</p>
+<ol class="arabic">
+<li><p>Publishing a pose on the topic</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>/initialpose : <a class="reference external" href="https://github.com/ros2/common_interfaces/blob/humble/geometry_msgs/msg/PoseWithCovarianceStamped.msg">geometry_msgs/msg/PoseWithCovarianceStamped</a></p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/local.png"><img alt="../../_images/local.png" class="align-center" src="../../_images/local.png" style="width: 400px;" /></a>
+</div></blockquote>
+</li>
+<li><p>Turn on the robot in the <strong>origin</strong> of the map, which is the point (0, 0, 0) in the map coordinates.</p></li>
+</ol>
 </section>
 <section id="mapping">
 <h2>Mapping<a class="headerlink" href="#mapping" title="Permalink to this heading"></a></h2>
