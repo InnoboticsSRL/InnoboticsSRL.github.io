@@ -9,7 +9,7 @@ Arm
 Publishers
     - /robofox/joint_states: `sensor_msgs/msg/JointState <https://github.com/ros2/common_interfaces/blob/humble/sensor_msgs/msg/JointState.msg>`_
     - /robofox/logic_state: `std_msgs/msg/String <https://github.com/ros2/common_interfaces/blob/humble/std_msgs/msg/String.msg>`_
-    - /robofox/eef_pose: `ibt_ros2_interfaces/msg/PoseRPY``
+    - /robofox/eef_pose: `ibt_ros2_interfaces/msg/PoseRPY <https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/msg/PoseRPY.msg>`_
 Services server
     - /robofox/disarm: `std_srvs/srv/Trigger <https://github.com/ros2/common_interfaces/blob/humble/std_srvs/srv/Trigger.srv>`_
     - /robofox/rearm: `std_srvs/srv/Trigger <https://github.com/ros2/common_interfaces/blob/humble/std_srvs/srv/Trigger.srv>`_
@@ -191,3 +191,10 @@ The end effector is the part of the manipulator that interacts with the environm
 Services server
     - /robofox/set_output: `ibt_ros2_interfaces/srv/SetOutput <https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/srv/SetOutput.srv>`_
     - /robofox/get_input: `ibt_ros2_interfaces/srv/GetInput <https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/srv/GetInput.srv>`_
+
+
+Diagnostics
+------------
+
+Services server
+	- /sick/getInput: `ibt_ros2_interfaces/srv/GetAttrAll <https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/srv/GetAttrAll.srv>`_

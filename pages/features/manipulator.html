@@ -50,6 +50,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Manipulator</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#arm">Arm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#end-effector">End effector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#diagnostics">Diagnostics</a></li>
 </ul>
 </li>
 </ul>
@@ -86,7 +87,7 @@
 <dt>Publishers</dt><dd><ul class="simple">
 <li><p>/robofox/joint_states: <a class="reference external" href="https://github.com/ros2/common_interfaces/blob/humble/sensor_msgs/msg/JointState.msg">sensor_msgs/msg/JointState</a></p></li>
 <li><p>/robofox/logic_state: <a class="reference external" href="https://github.com/ros2/common_interfaces/blob/humble/std_msgs/msg/String.msg">std_msgs/msg/String</a></p></li>
-<li><p>/robofox/eef_pose: <cite>ibt_ros2_interfaces/msg/PoseRPY`</cite></p></li>
+<li><p>/robofox/eef_pose: <a class="reference external" href="https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/msg/PoseRPY.msg">ibt_ros2_interfaces/msg/PoseRPY</a></p></li>
 </ul>
 </dd>
 <dt>Services server</dt><dd><ul class="simple">
@@ -275,6 +276,15 @@ The controller supports various types of movement:</p>
 <dt>Services server</dt><dd><ul class="simple">
 <li><p>/robofox/set_output: <a class="reference external" href="https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/srv/SetOutput.srv">ibt_ros2_interfaces/srv/SetOutput</a></p></li>
 <li><p>/robofox/get_input: <a class="reference external" href="https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/srv/GetInput.srv">ibt_ros2_interfaces/srv/GetInput</a></p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="diagnostics">
+<h2>Diagnostics<a class="headerlink" href="#diagnostics" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>Services server</dt><dd><ul class="simple">
+<li><p>/sick/getInput: <a class="reference external" href="https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/srv/GetAttrAll.srv">ibt_ros2_interfaces/srv/GetAttrAll</a></p></li>
 </ul>
 </dd>
 </dl>
