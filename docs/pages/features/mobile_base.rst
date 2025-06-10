@@ -13,6 +13,22 @@ You can control the robot's navigation using the following actions:
 Actions:
 	- /navigate_to_pose: `nav2_msgs/action/NavigateToPose <https://github.com/ros-navigation/navigation2/blob/humble/nav2_msgs/action/NavigateToPose.action>`_
 
+.. warning:: Remember to be sure that the robot is located in the environment before proceeding with new goals
+
+Localization
+-------------
+The first localization of robot in the map is required to use the naviation stack in proper way. 
+It can be made by:
+
+1. Publishing a pose on the topic
+
+	- /initialpose : `geometry_msgs/msg/PoseWithCovarianceStamped <https://github.com/ros2/common_interfaces/blob/humble/geometry_msgs/msg/PoseWithCovarianceStamped.msg>`_
+
+	.. image:: ../img/local.png
+		:width: 400
+		:align: center
+
+2. Turn on the robot in the **origin** of the map, which is the point (0, 0, 0) in the map coordinates.
 
 Mapping
 -------
