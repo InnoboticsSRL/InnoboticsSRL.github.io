@@ -13,6 +13,7 @@ Welcome to ComboFox's documentation!
    pages/getting_started.md
    pages/features/mobile_base.rst
    pages/features/manipulator.rst
+   pages/features/diagnostics.rst
 
 A portion of the source code can be found on GitHub 
 `https://github.com/InnoboticsSRL <https://github.com/InnoboticsSRL>`_

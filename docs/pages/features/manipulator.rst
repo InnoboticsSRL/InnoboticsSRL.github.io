@@ -191,10 +191,3 @@ The end effector is the part of the manipulator that interacts with the environm
 Services server
     - /robofox/set_output: `ibt_ros2_interfaces/srv/SetOutput <https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/srv/SetOutput.srv>`_
     - /robofox/get_input: `ibt_ros2_interfaces/srv/GetInput <https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/srv/GetInput.srv>`_
-
-
-Diagnostics
-------------
-
-Services server
-	- /sick/getInput: `ibt_ros2_interfaces/srv/GetAttrAll <https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/srv/GetAttrAll.srv>`_
