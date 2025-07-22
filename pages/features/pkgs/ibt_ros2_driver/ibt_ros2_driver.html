@@ -113,12 +113,14 @@ The controller supports various types of movement:</p>
 
 <span class="w">  </span>Publishers:
 <span class="w">    </span>/parameter_events:<span class="w"> </span>rcl_interfaces/msg/ParameterEvent
+<span class="w">    </span>/robofox/din:<span class="w"> </span>ibt_ros2_interfaces/msg/VectorBool
 <span class="w">    </span>/robofox/eef_pose:<span class="w"> </span>ibt_ros2_interfaces/msg/PoseRPY
 <span class="w">    </span>/robofox/joint_states:<span class="w"> </span>sensor_msgs/msg/JointState
 <span class="w">    </span>/robofox/logic_state:<span class="w"> </span>std_msgs/msg/String
 <span class="w">    </span>/rosout:<span class="w"> </span>rcl_interfaces/msg/Log
 <span class="w">  </span>Service<span class="w"> </span>Servers:
 <span class="w">    </span>/robofox/disarm:<span class="w"> </span>std_srvs/srv/Trigger
+<span class="w">    </span>/robofox/get_input:<span class="w"> </span>ibt_ros2_interfaces/srv/GetInput
 <span class="w">    </span>/robofox/ibt_ros2_driver/describe_parameters:<span class="w"> </span>rcl_interfaces/srv/DescribeParameters
 <span class="w">    </span>/robofox/ibt_ros2_driver/get_parameter_types:<span class="w"> </span>rcl_interfaces/srv/GetParameterTypes
 <span class="w">    </span>/robofox/ibt_ros2_driver/get_parameters:<span class="w"> </span>rcl_interfaces/srv/GetParameters
@@ -137,7 +139,7 @@ The controller supports various types of movement:</p>
 </section>
 <section id="moving-the-arm">
 <h2>Moving the Arm<a class="headerlink" href="#moving-the-arm" title="Permalink to this heading"></a></h2>
-<p>To send commands to the move_arm action server, it is recommended to write a ROS 2 client. Below is a practical example.</p>
+<p>To send commands to the <em>move_arm</em> action server, you need to write a ROS 2 client and send through it your target poses.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.action</span><span class="w"> </span><span class="kn">import</span> <span class="n">ActionClient</span>

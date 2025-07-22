@@ -38,12 +38,14 @@ This package provides interfaces to control a robotic arm. The main functionalit
 
   Publishers:
     /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /robofox/din: ibt_ros2_interfaces/msg/VectorBool
     /robofox/eef_pose: ibt_ros2_interfaces/msg/PoseRPY
     /robofox/joint_states: sensor_msgs/msg/JointState
     /robofox/logic_state: std_msgs/msg/String
     /rosout: rcl_interfaces/msg/Log
   Service Servers:
     /robofox/disarm: std_srvs/srv/Trigger
+    /robofox/get_input: ibt_ros2_interfaces/srv/GetInput
     /robofox/ibt_ros2_driver/describe_parameters: rcl_interfaces/srv/DescribeParameters
     /robofox/ibt_ros2_driver/get_parameter_types: rcl_interfaces/srv/GetParameterTypes
     /robofox/ibt_ros2_driver/get_parameters: rcl_interfaces/srv/GetParameters
@@ -62,7 +64,7 @@ This package provides interfaces to control a robotic arm. The main functionalit
 
 ## Moving the Arm
 
-To send commands to the move_arm action server, it is recommended to write a ROS 2 client. Below is a practical example.
+To send commands to the *move_arm* action server, you need to write a ROS 2 client and send through it your target poses.
 
 ```python
 import rclpy
