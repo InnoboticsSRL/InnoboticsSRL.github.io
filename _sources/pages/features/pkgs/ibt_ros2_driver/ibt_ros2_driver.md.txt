@@ -108,17 +108,16 @@ class TESTMove(Node):
         self.req_home.waypoints = [self.wp_home]
 
         self.wp_default = Waypoint()
-        # in joint
         self.wp_default.pose = [-1.361, -0.578, 1.607, 0.038, 0.384, 0.000]
         self.wp_default.smoothing_factor = 0.1
         self.wp_default.next_segment_velocity_factor = 0.1
 
         self.req_default = MoveReq()
         self.req_default.move_type = MoveReq.JOINT
-        self.req_home.velocity = 0.5
-        self.req_home.acceleration = 0.3
-        self.req_home.rotational_velocity = 0.5
-        self.req_home.rotational_acceleration = 0.3
+        self.req_default.velocity = 0.5
+        self.req_default.acceleration = 0.3
+        self.req_default.rotational_velocity = 0.5
+        self.req_default.rotational_acceleration = 0.3
         self.req_default.waypoints = [self.wp_default]
 
         # Detection poses in xyzRPY format wrt base_link
@@ -170,10 +169,11 @@ class TESTMove(Node):
         return pose
 
     def feedback_callback(self, feedback_msg):
-        self.get_logger().info(f'{YELLOW} Feedback: {feedback_msg.feedback.status}{RESET}')
+        pass
+        # self.get_logger().info(f'{YELLOW} Feedback: {feedback_msg.feedback.status}{RESET}')
 
     def move_to_req_pose(self, req: MoveReq):
-        self.get_logger().info(f'{BLUE} [Trying to move to home pose...{RESET}')
+        self.get_logger().info(f'{BLUE} [Trying to move to pose...{RESET}]')
         goal_msg = MoveArm.Goal()
         goal_msg.requests = [req]
 
@@ -201,7 +201,7 @@ class TESTMove(Node):
         wp = Waypoint()
         wp.pose = [rpy.x, rpy.y, rpy.z, rpy.roll, rpy.pitch, rpy.yaw]
         wp.smoothing_factor = 0.1
-        wp.next_segment_velocity_factor = 0.1
+        wp.next_segment_velocity_factor = 1.0
 
         req = MoveReq()
         req.move_type = MoveReq.PTP
@@ -239,14 +239,18 @@ class TESTMove(Node):
         self.move_client.wait_for_server()
         self.get_logger().info(f'{GREEN} Move arm server active...{RESET}')
 
+        self.get_logger().info(f'{GREEN}Move to POSE req_default: {RESET}')
         if not self.move_to_req_pose(self.req_default):
             self.get_logger().error(f'{RED}Pipeline aborted: failed to reach default pose.{RESET}')
             return
-
+        self.get_logger().info(f'{GREEN}Move to POSE req_home: {RESET}')
         if not self.move_to_req_pose(self.req_home):
             self.get_logger().error(f'{RED}Pipeline aborted: failed to reach home pose.{RESET}')
             return
-
+        self.get_logger().info(f'{GREEN}Move to POSE req_default: {RESET}')
+        if not self.move_to_req_pose(self.req_default):
+            self.get_logger().error(f'{RED}Pipeline aborted: failed to reach default pose.{RESET}')
+            return
             
         for i, pose_vec in enumerate(self.detection_poses):
             self.get_logger().info(f'{YELLOW} [Try {i+1}] Moving to detection pose...{RESET}')
@@ -254,7 +258,6 @@ class TESTMove(Node):
             if not self.move_to_pose_rpy(self.create_pose_msg(pose_vec)):
                 self.get_logger().error(f'{RED}Failed to move to detection pose {i+1}. Exiting...{RESET}')
                 return
-
 
 
         if not self.call_disarm_service():
@@ -275,4 +278,5 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
 ```
