@@ -11,6 +11,7 @@ Publishers
     - /robofox/logic_state: `std_msgs/msg/String <https://github.com/ros2/common_interfaces/blob/humble/std_msgs/msg/String.msg>`_
     - /robofox/eef_pose: `ibt_ros2_interfaces/msg/PoseRPY <https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/msg/PoseRPY.msg>`_
     - /robofox/din: `ibt_ros2_interfaces/msg/VectorBool <https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/msg/VectorBool.msg>`_ 
+    - /robofox/dout: `ibt_ros2_interfaces/msg/VectorBool <https://github.com/InnoboticsSRL/ibt_ros2_interfaces/blob/humble/msg/VectorBool.msg>`_ 
 Services server
     - /robofox/disarm: `std_srvs/srv/Trigger <https://github.com/ros2/common_interfaces/blob/humble/std_srvs/srv/Trigger.srv>`_
     - /robofox/rearm: `std_srvs/srv/Trigger <https://github.com/ros2/common_interfaces/blob/humble/std_srvs/srv/Trigger.srv>`_
